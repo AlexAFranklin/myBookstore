@@ -1,19 +1,43 @@
 package com.myBookstore.bookstore.entity;
 
+
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name = "books")
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "isbn")
     private String isbn;
+    @Column(name = "title")
     private String title;
+    @Column(name = "author")
     private String author;
+    @Column(name = "publisher")
     private String publisher;
+    @Column(name = "description")
     private String description;
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "genre")
+    @Enumerated(EnumType.STRING)
     private Genre genre;
 
     // TODO: images?
 
+    @Column(name = "inventory")
     private int inventory;
+    @Column(name = "available")
     private boolean available;
+
+    public Book() {
+    }
 
     public Book(String isbn1, String s, String s1, String s2, String s3, double v, Genre genre, int i, boolean b) {
     }

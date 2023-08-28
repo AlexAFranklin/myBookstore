@@ -6,16 +6,16 @@ import com.myBookstore.bookstore.entity.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements IBookService{
 
+@Autowired
+    private final BookRepository bookRepository;
 
-    private BookRepository bookRepository;
-
-    @Autowired
     public BookServiceImpl(BookRepository theBookRepository) {
 
         bookRepository = theBookRepository;
@@ -41,11 +41,12 @@ public class BookServiceImpl implements IBookService{
 
     @Override
     public List<Book> findByGenre(Genre theGenre) {
-        return null;
+        return bookRepository.findByGenre(theGenre);
     }
 
     @Override
     public void save(Book theBook) {
-
+    bookRepository.save(theBook);
     }
 }
+
