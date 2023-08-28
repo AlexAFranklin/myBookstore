@@ -13,4 +13,7 @@ admin can remove books from store (set availability to false)
 
 ORDERS
 user can create new order (cart)
-user
+user can add new items to cart
+user can view cart
+user can "check out"
+
