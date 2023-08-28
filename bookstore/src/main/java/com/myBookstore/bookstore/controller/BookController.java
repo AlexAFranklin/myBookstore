@@ -40,15 +40,28 @@ public class BookController {
     }
 
 
+    @GetMapping("/genre/all/{genre}")
+    public List<Book> findAllAdmin(@PathVariable Genre genre) {
+        return iBookService.findByGenre(genre);
+
+    }
+
     @GetMapping("/genre/{genre}")
     public List<Book> findAll(@PathVariable Genre genre) {
-        return iBookService.findByGenre(genre);
+        return iBookService.findByGenreAndAvailable(genre, true);
+
+    }
+    @GetMapping("/all/{id}")
+    public ResponseEntity<Book> findByIdAdmin(@PathVariable int id) {
+        return iBookService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.noContent().build());
 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> findById(@PathVariable int id) {
-        return iBookService.findById(id)
+        return iBookService.findByIdAndAvailable(id, true)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.noContent().build());
 

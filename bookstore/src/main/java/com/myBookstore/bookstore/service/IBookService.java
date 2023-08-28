@@ -16,5 +16,7 @@ public interface IBookService {
     List<Book> findByGenre(Genre theGenre);
 
     void save(Book theBook);
+    List<Book> findByGenreAndAvailable(Genre genre, boolean available);
+    Optional<Book> findByIdAndAvailable(int id, boolean available);
 
 }

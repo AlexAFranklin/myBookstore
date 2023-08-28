@@ -1,8 +1,11 @@
 BOOKS:
-user can browse all books
-user can look at an individual book
-user can browse by genre
+user can browse all books - available - DONE
+user can look at an individual book - available - DONE
+user can browse by genre - available - DONE
 
+admin can view all books - all - DONE
+admin can look at an individual book - all - DONE
+admin can browse by genre - DONE
 admin can add new books
 admin can update book information
 admin can add inventory

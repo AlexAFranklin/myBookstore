@@ -37,12 +37,6 @@ public class BookServiceImpl implements IBookService{
     @Override
     public Optional<Book> findById(int theId) {
         return bookRepository.findById(theId);
-
-        // TODO - handle optional in controller
-//        @GetMapping("/products/{code}")
-//        public ResponseEntity<Product> findByCode(@PathVariable String code) {
-//            return productService.findByCode(code).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
-//        } -- from StackOverflow
     }
 
     @Override
@@ -50,6 +44,14 @@ public class BookServiceImpl implements IBookService{
         return bookRepository.findByGenre(theGenre);
     }
 
+    @Override
+    public List<Book> findByGenreAndAvailable(Genre genre, boolean available){
+        return bookRepository.findByGenreAndAvailable(genre, available);
+    }
+    @Override
+    public Optional<Book> findByIdAndAvailable(int id, boolean available){
+        return bookRepository.findByIdAndAvailable(id, available);
+    }
     @Override
     public void save(Book theBook) {
     bookRepository.save(theBook);
