@@ -6,7 +6,6 @@ import com.myBookstore.bookstore.entity.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +26,13 @@ public class BookServiceImpl implements IBookService{
     public List<Book> findAll() {
         return bookRepository.findAll();
     }
+
+    @Override
+    public List<Book> findAllByAvailable(boolean available){
+
+        return bookRepository.findAllByAvailable(available);
+    }
+
 
     @Override
     public Optional<Book> findById(int theId) {

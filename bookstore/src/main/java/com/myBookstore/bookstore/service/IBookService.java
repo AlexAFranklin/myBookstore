@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface IBookService {
     List<Book> findAll();
 
+    List<Book> findAllByAvailable(boolean available);
+
     Optional<Book> findById(int theId);
 
     List<Book> findByGenre(Genre theGenre);

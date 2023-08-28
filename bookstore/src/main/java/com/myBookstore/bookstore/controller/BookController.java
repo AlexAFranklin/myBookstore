@@ -29,10 +29,16 @@ public class BookController {
     }
 
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<Book> findAll() {
         return iBookService.findAll();
     }
+
+    @GetMapping("/")
+    public List<Book> findAllAvailable() {
+        return iBookService.findAllByAvailable(true);
+    }
+
 
     @GetMapping("/genre/{genre}")
     public List<Book> findAll(@PathVariable Genre genre) {
