@@ -68,4 +68,9 @@ public class BookController {
     public void addBook(@RequestBody Book newBook) {
         iBookService.save(newBook);
     }
+
+    @GetMapping("/price/{price}")
+    public List<Book> findByPrice(@PathVariable double price) {
+        return iBookService.findByPrice(price);
+    }
 }

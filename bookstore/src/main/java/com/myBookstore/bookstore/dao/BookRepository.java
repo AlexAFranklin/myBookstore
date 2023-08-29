@@ -16,7 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByGenreAndAvailable(Genre genre, boolean available);
     Optional<Book> findByIdAndAvailable(int id, boolean available);
 
-
+    List<Book> findByPrice(double price);
 }
 
 

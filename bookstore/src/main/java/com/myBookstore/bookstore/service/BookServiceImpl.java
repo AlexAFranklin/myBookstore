@@ -56,5 +56,10 @@ public class BookServiceImpl implements IBookService{
     public void save(Book theBook) {
     bookRepository.save(theBook);
     }
+
+    @Override
+    public List<Book> findByPrice(double price){
+        return bookRepository.findByPrice(price);
+    }
 }
 

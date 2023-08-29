@@ -13,28 +13,28 @@ import java.util.stream.Collectors;
 
 @Controller
 public class DemoController {
-    @GetMapping("")
-    public String sayHello(Model model, Authentication authentication) {
-        String userName = authentication.getName();
-        List<String> roles = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("roles", roles);
-
-        return "hello";
-    }
-
 //    @GetMapping("")
-//    public String sayHello(Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println("Principal: " + authentication.getPrincipal());
+//    public String sayHello(Model model, Authentication authentication) {
+//        String userName = authentication.getName();
+//        List<String> roles = authentication.getAuthorities().stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.toList());
 //
-//        // Other logic and model attributes
+//        model.addAttribute("userName", userName);
+//        model.addAttribute("roles", roles);
 //
-//        return "hello"; // Return the name of your Thymeleaf template
+//        return "hello";
 //    }
+
+    @GetMapping("")
+    public String sayHello(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Principal: " + authentication.getPrincipal());
+
+        // Other logic and model attributes
+
+        return "hello"; // Return the name of your Thymeleaf template
+    }
 
     @GetMapping("/showMyLoginPage")
     public String showMyLoginPage() {

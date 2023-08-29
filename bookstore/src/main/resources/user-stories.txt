@@ -6,14 +6,31 @@ user can browse by genre - available - DONE
 admin can view all books - all - DONE
 admin can look at an individual book - all - DONE
 admin can browse by genre - DONE
-admin can add new books
-admin can update book information
-admin can add inventory
-admin can remove books from store (set availability to false)
 
-ORDERS
-user can create new order (cart)
-user can add new items to cart
-user can view cart
-user can "check out"
+admin can add new books - DONE
+admin can update book information - TODO - EHSAN
+admin can add inventory - TODO - EHSAN
+    - update inventory column
+admin can remove books from store (set availability to false) - TODO - EHSAN
+
+PURCHASE REQUESTS
+User can make a purchase request - TODO
+user can cancel a purchase request - TODO
+User can view all purchase requests - TODO
+Admin can fulfil a purchase request - TODO
+    - change status in purchase table, decrease inventory in books table.
+
+DB for purchase requests
+id
+book_id
+customer_id
+admin_id (nullable)
+requestDate
+status (enum - request, cancelled, fulfilled)
+
+
+
+
+
+
 

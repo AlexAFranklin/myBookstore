@@ -19,4 +19,6 @@ public interface IBookService {
     List<Book> findByGenreAndAvailable(Genre genre, boolean available);
     Optional<Book> findByIdAndAvailable(int id, boolean available);
 
+    List<Book> findByPrice(double price);
+
 }
