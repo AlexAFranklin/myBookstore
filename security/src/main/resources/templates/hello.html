@@ -9,27 +9,25 @@
     <title>Spring Boot App - Security Practice</title>
 </head>
 <body>
-<header>
-    <h1>Log In</h1>
-</header>
 
-<main>
+    <h1>Log In</h1>
+
+
+
     <form action="#" th:action="@{/logout}" method="post">
         <input type="submit" class="btn" value="Logout">
     </form>
 
 <hr>
     <p>
-        User: <span sec:authentication="principal.username"> </span>
+    <p>User: <span th:text="${#authentication.name}"></span></p>
+
+    User: <span sec:authentication="principal.username"> </span>
         <br><br>
         Role(s): <span sec:authentication="principal.authorities"> </span>
     </p>
 
 
-</main>
 
-<footer>
-    <p>&copy; 2023 Your Company</p>
-</footer>
 </body>
 </html>
