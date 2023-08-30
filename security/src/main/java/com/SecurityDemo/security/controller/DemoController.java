@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,8 +18,8 @@ public class DemoController {
 
     @GetMapping("")
     public String sayHello(Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println("Principal: " + authentication.getPrincipal());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Principal: " + authentication.getPrincipal());
         return "hello";
     }
 

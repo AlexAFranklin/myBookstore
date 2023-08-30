@@ -25,7 +25,7 @@
     Role(s): <span sec:authentication="principal.authorities"> </span>
 </p>
 
-<p sec:authorize="hasRole('ROLE_MANAGER')"><a th:href="@{/leaders}">Leadership Meeting</a></p>
+<p sec:authorize="hasRole('ROLE_EMPLOYEE')"><a th:href="@{/leaders}">Leadership Meeting</a></p>
 <p sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/systems}">Systems page</a></p>
 
 <!--<p sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"><a th:href="@{/leaders}">Leadership Meeting</a></p>-->
