@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 //@Controller
@@ -66,11 +67,30 @@ public class BookController {
 
     @PostMapping("")
     public void addBook(@RequestBody Book newBook) {
+
+        iBookService.save(newBook);
+    }
+
+    @PostMapping("update/{id}")
+    public void updateBook(@RequestBody Book newBook) {
+
         iBookService.save(newBook);
     }
 
     @GetMapping("/price/{price}")
     public List<Book> findByPrice(@PathVariable double price) {
         return iBookService.findByPrice(price);
+    }
+
+    @PostMapping("/inventory-update/{id}")
+    public void updateInventory(@PathVariable int id, @RequestBody Map<String, Integer> requestBody){
+        int inventory = requestBody.get("inventory");
+        iBookService.updateInventory(id, inventory);
+    }
+
+    @PostMapping("/available-update/{id}")
+    public void updateAvailability(@PathVariable int id, @RequestBody Map<String, Boolean> requestBody){
+        boolean available = requestBody.get("available");
+        iBookService.updateAvailability(id, available);
     }
 }

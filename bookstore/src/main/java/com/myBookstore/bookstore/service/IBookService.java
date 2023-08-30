@@ -16,9 +16,14 @@ public interface IBookService {
     List<Book> findByGenre(Genre theGenre);
 
     void save(Book theBook);
+
     List<Book> findByGenreAndAvailable(Genre genre, boolean available);
     Optional<Book> findByIdAndAvailable(int id, boolean available);
 
     List<Book> findByPrice(double price);
+
+    void updateInventory(Integer theId, int newBooksAmount);
+
+    void updateAvailability(Integer theId, boolean available);
 
 }

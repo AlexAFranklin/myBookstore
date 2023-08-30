@@ -8,10 +8,10 @@ admin can look at an individual book - all - DONE
 admin can browse by genre - DONE
 
 admin can add new books - DONE
-admin can update book information - TODO - EHSAN
-admin can add inventory - TODO - EHSAN
+admin can update book information - DONE
+admin can add inventory - DONE
     - update inventory column
-admin can remove books from store (set availability to false) - TODO - EHSAN
+admin can remove books from store (set availability to false) - DONE
 
 PURCHASE REQUESTS
 User can make a purchase request - TODO
@@ -21,12 +21,17 @@ Admin can fulfil a purchase request - TODO
     - change status in purchase table, decrease inventory in books table.
 
 DB for purchase requests
+
+table name - purchase_requests
+
+
 id
-book_id
-customer_id
-admin_id (nullable)
-requestDate
-status (enum - request, cancelled, fulfilled)
+book_id (foreign key in books table (id) )
+customer_id (foreign key in users table - username)
+employee_id (nullable) (foreign key in users table - username)
+request_date
+status_update_date (nullable)
+status (enum - REQUEST, CANCELLED, FULFILLED)
 
 
 

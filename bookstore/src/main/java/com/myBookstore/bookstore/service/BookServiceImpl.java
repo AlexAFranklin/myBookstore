@@ -3,6 +3,7 @@ package com.myBookstore.bookstore.service;
 import com.myBookstore.bookstore.dao.BookRepository;
 import com.myBookstore.bookstore.entity.Book;
 import com.myBookstore.bookstore.entity.Genre;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +58,41 @@ public class BookServiceImpl implements IBookService{
     bookRepository.save(theBook);
     }
 
+
+
     @Override
     public List<Book> findByPrice(double price){
         return bookRepository.findByPrice(price);
+    }
+
+    @Override
+    public void updateInventory(Integer theId, int newBooksAmount){
+        Optional<Book> theBook = bookRepository.findById(theId);
+
+        if (theBook.isPresent()) {
+            Book book = theBook.get();
+            int currentInventory = book.getInventory();
+            book.setInventory(currentInventory + newBooksAmount);
+            bookRepository.save(book);
+
+            if (book.getInventory() <= 0) {
+                updateAvailability(theId, false);
+            }
+        } else {
+            throw new EntityNotFoundException("Book with ID " + theId + " is not found.");
+        }
+    }
+
+    @Override
+    public void updateAvailability(Integer theId, boolean available) {
+        Optional<Book> theBook = bookRepository.findById(theId);
+        if (theBook.isPresent()) {
+            Book book = theBook.get();
+            book.setAvailable(available);
+            bookRepository.save(book);
+        } else {
+            throw new EntityNotFoundException("Book with ID " + theId + " is not found.");
+        }
     }
 }
 
