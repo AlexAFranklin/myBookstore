@@ -13,32 +13,33 @@ import java.util.stream.Collectors;
 
 @Controller
 public class DemoController {
-//    @GetMapping("")
-//    public String sayHello(Model model, Authentication authentication) {
-//        String userName = authentication.getName();
-//        List<String> roles = authentication.getAuthorities().stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.toList());
-//
-//        model.addAttribute("userName", userName);
-//        model.addAttribute("roles", roles);
-//
-//        return "hello";
-//    }
+
 
     @GetMapping("")
     public String sayHello(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("Principal: " + authentication.getPrincipal());
-
-        // Other logic and model attributes
-
-        return "hello"; // Return the name of your Thymeleaf template
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println("Principal: " + authentication.getPrincipal());
+        return "hello";
     }
 
-    @GetMapping("/showMyLoginPage")
+    @GetMapping("/leaders")
+    public String showLeaders() {
+        return "leaders";
+    }
+
+    @GetMapping("/systems")
+    public String showSystems() {
+        return "systems";
+    }
+
+        @GetMapping("/showMyLoginPage")
     public String showMyLoginPage() {
         return "plain-login";
+    }
+
+    @GetMapping("/access-denied")
+        public String showAccessDenied() {
+        return "access-denied";
     }
 
 
