@@ -108,7 +108,7 @@
 <table class="table table-hover m-5">
     <thead>
     <tr>
-        <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">ID</th>
+        <th scope="col">ID</th>
         <th sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" scope="col">ISBN</th>
         <th scope="col">Title</th>
         <th scope="col">Author</th>
@@ -120,15 +120,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="theBook : ${books}">
-        <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${theBook.id}" />
+    <tr th:each="theBook, rowStatus : ${books}">
+        <td th:text="${theBook.id}" />
         <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.isbn}" />
         <td th:text="${theBook.title}" />
         <td th:text="${theBook.author}" />
         <td th:text="${theBook.genre.displayValue}" />
         <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.inventory}" />
         <td>
-            <button sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" type="button" class="btn btn-warning" data-toggle="modal" data-target="#addInventory">
+            <button sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" type="button" class="btn btn-warning" data-toggle="modal" th:attr="data-target='#addInventory' + ${rowStatus.index}">
                 Add inventory
             </button>
 
@@ -137,12 +137,12 @@
 
         <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.available}" />
         <td>
-            <a  href="#" data-toggle="modal" data-target="#bookDetails" class="btn btn-primary p-1">Details(Book)</a>
-            <a sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" href="#" data-toggle="modal" data-target="#updateBook" class="btn btn-primary p-1">Details(Employee)</a>
+            <a  href="#" data-toggle="modal" th:attr="data-target='#bookDetails' + ${rowStatus.index}" class="btn btn-primary p-1">Details(Book)</a>
+            <a sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" href="#" data-toggle="modal" th:attr="data-target='#updateBook' + ${rowStatus.index}" class="btn btn-primary p-1">Details(Employee)</a>
         </td>
 
         <!-- Add Inventory modal -->
-        <div class="modal fade" id="addInventory" tabindex="-1" role="dialog" aria-labelledby="addInventory" aria-hidden="true">
+        <div class="modal fade" th:attr="id='addInventory' + ${rowStatus.index}" tabindex="-1" role="dialog" aria-labelledby="addInventory" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -156,11 +156,12 @@
 
                         <form th:action="@{/books/inventory-update}" th:object="${theBook}" method="POST">
                             <div class="form-group">
-                                <input type="number" class="form-control" id="idAdd" name="id" th:value="${theBook.id}" hidden="hidden">
+                                <input type="hidden" name="id" th:value="${theBook.id}">
+
                             </div>
                             <div class="form-group">
-                                <label for="inventoryAdd">Inventory to Add</label>
-                                <input type="number" class="form-control" id="inventoryAdd" name="inventory">
+                                <label>Inventory to Add</label>
+                                <input type="number" class="form-control" name="inventory">
                             </div>
                             <button type="submit" class="btn btn-primary mt-5">Submit</button>
                         </form>
@@ -173,7 +174,7 @@
         </div>
 
         <!-- DETAILS MODAL -->
-        <div class="modal fade" id="bookDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" th:attr="id='bookDetails' + ${rowStatus.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -200,7 +201,7 @@
         </div>
 
         <!-- UPDATE MODAL -->
-        <div class="modal fade" id="updateBook" tabindex="-1" role="dialog" aria-labelledby="updateModal"
+        <div class="modal fade" th:attr="id='updateBook' + ${rowStatus.index}" tabindex="-1" role="dialog" aria-labelledby="updateModal"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -297,79 +298,7 @@
 </table>
 
 
-<!--&lt;!&ndash; UPDATE MODAL &ndash;&gt;-->
-<!--<div class="modal fade" id="updateBook" tabindex="-1" role="dialog" aria-labelledby="updateModal"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="updateModal">-->
 
-
-<!--                    Update-->
-
-
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-
-<!--                <form>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="id">Book Id:</label>-->
-<!--                        <input type="number" class="form-control" id="id" placeholder="1">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="isbn">Book Id:</label>-->
-<!--                        <input type="text" class="form-control" id="isbn" placeholder="978-0143058144">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="title">Title</label>-->
-<!--                        <input type="text" class="form-control" id="title" placeholder="Crime and Punishment">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="publisher">Publisher</label>-->
-<!--                        <input type="text" class="form-control" id="publisher" placeholder="Penguin Classics">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="description">Description</label>-->
-<!--                        <textarea class="form-control" id="description"-->
-<!--                                  rows="6">Raskolnikov, a destitute and desperate former student, wanders through the slums of St Petersburg and commits a random murder without remorse or regret. He imagines himself to be a great man, a Napoleon: acting for a higher purpose beyond conventional moral law. But as he embarks on a dangerous game of cat and mouse with a suspicious police investigator, Raskolnikov is pursued by the growing voice of his conscience and finds the noose of his own guilt tightening around his neck. Only Sonya, a downtrodden sex worker, can offer the chance of redemption.</textarea>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="price">Price:</label>-->
-<!--                        <input type="number" class="form-control" id="price" placeholder="19.99">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="inventory">Inventory:</label>-->
-<!--                        <input type="number" class="form-control" id="inventory" placeholder="25">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label>Available</label>-->
-<!--                        <div class="form-check">-->
-<!--                            <input class="form-check-input" type="radio" name="available" id="yes" value="yes"-->
-<!--                                   checked>-->
-<!--                            <label class="form-check-label" for="yes">-->
-<!--                                Yes-->
-<!--                            </label>-->
-<!--                        </div>-->
-<!--                        <div class="form-check">-->
-<!--                            <input class="form-check-input" type="radio" name="available" id="no" value="no">-->
-<!--                            <label class="form-check-label" for="no">-->
-<!--                                No-->
-<!--                            </label>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-
-<!--                    <button type="submit" class="btn btn-primary mt-5">Submit</button>-->
-<!--                </form>-->
-
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 
 
@@ -382,6 +311,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script>
+    let
+
+
+
+
+
+</script>
 </body>
 
 </html>
