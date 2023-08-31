@@ -24,12 +24,12 @@ public class User {
     private String email;
 
     @Column(name = "enabled")
-    private String enabled;
+    private int enabled;
 
     public User() {
     }
 
-    public User(String username, String password, String fullName, String email, String enabled) {
+    public User(String username, String password, String fullName, String email, int enabled) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -69,11 +69,11 @@ public class User {
         this.email = email;
     }
 
-    public String getEnabled() {
+    public int getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(String enabled) {
+    public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
 }

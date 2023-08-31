@@ -65,10 +65,12 @@
                 <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-warning mx-1" href="#">Register</a>
+                <a class="btn btn-warning mx-1" th:href="@{/showRegistration}">Register</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-warning mx-1" href="#">Logout</a>
+                <form action="#" th:action="@{/logout}" method="post">
+                    <input type="submit" class="btn btn-warning mx-1" value="Logout">
+                </form>
             </li>
 
 

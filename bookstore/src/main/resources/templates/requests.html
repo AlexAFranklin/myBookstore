@@ -47,7 +47,9 @@
                 <a class="btn btn-warning mx-1" href="#">Register</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-warning mx-1" href="#">Logout</a>
+                <form action="#" th:action="@{/logout}" method="post">
+                    <input type="submit" class="btn btn-warning mx-1" value="Logout">
+                </form>
             </li>
         </ul>
     </div>
