@@ -1,33 +1,36 @@
-//package com.myBookstore.bookstore.controller;
-//
-//import com.myBookstore.bookstore.entity.Book;
-//import com.myBookstore.bookstore.entity.RequestViewDto;
-//import com.myBookstore.bookstore.entity.Requests;
-//import com.myBookstore.bookstore.service.IBookService;
-//import com.myBookstore.bookstore.service.IRequestService;
-//import jakarta.persistence.criteria.CriteriaBuilder;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.math.BigDecimal;
-//import java.util.*;
-//
-//@RestController
-//@RequestMapping("requests")
-//public class RequestController {
-//
-//    @Autowired
-//    private IRequestService iRequestService;
-//    private IBookService iBookService;
-//
-//    public RequestController(IRequestService theRequestService, IBookService theBookService) {
-//        iRequestService = theRequestService;
-//        iBookService = theBookService;
-//    }
-//
-//
-//
+package com.myBookstore.bookstore.controller;
+
+import com.myBookstore.bookstore.entity.Book;
+import com.myBookstore.bookstore.entity.RequestViewDto;
+import com.myBookstore.bookstore.entity.Requests;
+import com.myBookstore.bookstore.service.IBookService;
+import com.myBookstore.bookstore.service.IRequestService;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.*;
+
+@Controller
+@RequestMapping("/requests")
+public class RequestController {
+
+    @Autowired
+    private IRequestService iRequestService;
+    private IBookService iBookService;
+
+    public RequestController(IRequestService theRequestService, IBookService theBookService) {
+        iRequestService = theRequestService;
+        iBookService = theBookService;
+    }
+
+
+
 //    @PostMapping("new")
 //    public void addRequest(@RequestBody Requests newRequest){
 //        iRequestService.save(newRequest);
@@ -44,26 +47,32 @@
 //    public void cancelRequest(@PathVariable int id){
 //        iRequestService.cancelRequest(id);
 //    }
-//
-//    @GetMapping("/all")
-//    public ResponseEntity<List<RequestViewDto>> viewAllRequests() {
-//        List<RequestViewDto> requestViewDtoList = iRequestService.getAllRequestsWithBookDetails();
-//        return ResponseEntity.ok(requestViewDtoList);
-//    }
-//    @GetMapping("/my-requests/{customerId}")
-//    public ResponseEntity<List<RequestViewDto>> viewUsersRequests(@PathVariable String customerId) {
-//        List<RequestViewDto> requestViewDtoList = iRequestService.getRequestsWithBookDetailsByCustomerId(customerId);
-//        return ResponseEntity.ok(requestViewDtoList);
-//    }
-//
-//    @GetMapping("/status/{status}")
-//    public ResponseEntity<List<RequestViewDto>> viewByStatus(@PathVariable String status){
-//        List<RequestViewDto> requestViewDtoList = iRequestService.findAllByStatus(status);
-//        return ResponseEntity.ok(requestViewDtoList);
-//    }
-//
-//
-//
-//
-//
-//}
+
+    @GetMapping("/all")
+    public String listAllRequests (Model theModel) {
+        List <RequestViewDto> requestList = iRequestService.getAllRequestsWithBookDetails();
+        theModel.addAttribute("requests", requestList);
+        return "requests";
+    }
+
+    @GetMapping("/my-requests/{customerId}")
+    public String listUserRequests(@PathVariable String customerId, Model theModel){
+        List <RequestViewDto> requestList = iRequestService.getRequestsWithBookDetailsByCustomerId(customerId);
+        theModel.addAttribute("requests", requestList);
+        return "requests";
+    }
+
+    @GetMapping("/status/{status}")
+    public String listByStatus(@PathVariable String status, Model theModel){
+        List <RequestViewDto> requestList = iRequestService.findAllByStatus(status);
+        theModel.addAttribute("requests", requestList);
+        return "requests";
+    }
+
+
+
+
+
+
+
+}
