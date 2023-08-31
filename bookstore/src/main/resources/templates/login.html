@@ -47,6 +47,9 @@
                                 <input type="submit" value="Log in" class="btn btn-success">
                             </div>
                         </div>
+                        <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <a class="btn btn-info mx-1" th:href="@{/showRegistration}">Register</a>
+                        </li>
                     </form>
                     <a class="nav-link" th:href="@{/books}">Back to Home Page</a>
                 </div>

@@ -89,11 +89,13 @@ public class BookController {
 //        iBookService.save(newBook);
 //    }
 //
-//    @PostMapping("update/{id}")
-//    public void updateBook(@RequestBody Book newBook) {
-//
-//        iBookService.save(newBook);
-//    }
+    @PostMapping("/update")
+    public String updateBook(@ModelAttribute("theBook") Book newBook) {
+        System.out.println(newBook.getAuthor() + "AUTHOR");
+        System.out.println(newBook.getGenre() + "GENRE");
+        iBookService.save(newBook);
+        return "redirect:/books/all";
+    }
 //
 //    @GetMapping("/price/{price}")
 //    public List<Book> findByPrice(@PathVariable double price) {
