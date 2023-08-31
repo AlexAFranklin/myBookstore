@@ -24,12 +24,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+
+
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/books}">All Books <span class="sr-only"></span></a>
+                <a class="nav-link" sec:authorize="not hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:href="@{/books}">All Books <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:href="@{/books/all}">All Books <span class="sr-only"></span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" sec:authorize="not hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:href="@{/books/genre/ROMANCE}">Romance</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/ROMANCE}">Romance</a>
+                <a class="nav-link" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:href="@{/books/genre/all/ROMANCE}">Romance</a>
             </li>
+
+
+
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/books/genre/NON_FICTION}">Non-Fiction</a>
             </li>
@@ -167,7 +180,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Purchase</button>
+                        <button type="button" class="btn btn-primary" sec:authorize="hasRole('ROLE_CUSTOMER')">Purchase</button>
+                        <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In to Purchase</a>
+                        </li>
                     </div>
                 </div>
             </div>
@@ -188,44 +204,47 @@
 
                     </div>
                     <div class="modal-body">
-
-                        <form>
+                        <form th:action="@{/books/update}" th:object="${theBook}" method="POST">
                             <div class="form-group">
-                                <label for="id">Book Id:</label>
-                                <input type="number" class="form-control" id="id" th:value="${theBook.id}">
+
+                                <input type="number" class="form-control" id="id" name="id" th:value="${theBook.id}" hidden="hidden">
                             </div>
                             <div class="form-group">
-                                <label for="isbn">Book Id:</label>
-                                <input type="text" class="form-control" id="isbn" th:value="${theBook.isbn}">
+                                <label for="isbn">ISBN:</label>
+                                <input type="text" class="form-control" id="isbn" name="isbn" th:value="${theBook.isbn}">
                             </div>
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" th:value="${theBook.title}">
+                                <input type="text" class="form-control" id="title" name="title" th:value="${theBook.title}">
+                            </div>
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" class="form-control" id="author" name="author" th:value="${theBook.author}">
                             </div>
                             <div class="form-group">
                                 <label for="publisher">Publisher</label>
-                                <input type="text" class="form-control" id="publisher" th:value="${theBook.publisher}">
+                                <input type="text" class="form-control" id="publisher" name="publisher" th:value="${theBook.publisher}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" id="description" rows="6" th:text="${theBook.description}"></textarea>
+                                <textarea class="form-control" id="description" rows="6" name="description" th:text="${theBook.description}"></textarea>
 
 
 
                                 <label>Genre</label>
                                 <div class="form-check" th:each="genreOpt : ${T(com.myBookstore.bookstore.entity.Genre).values()}">
-                                    <input class="form-check-input" type="radio" th:id="${genreOpt}" th:name="genreOpt" th:value="${genreOpt}"
+                                    <input class="form-check-input" type="radio" th:id="${genreOpt}" name="genre" th:name="genre" th:value="${genreOpt}"
                                            th:checked="${genreOpt== theBook.genre}" th:text="${genreOpt.displayValue}">
                                 </div>
 
 
                             <div class="form-group">
                                 <label for="price">Price:</label>
-                                <input type="number" class="form-control" id="price" th:value="${theBook.price}">
+                                <input type="number" class="form-control" name="price" id="price" th:value="${theBook.price}">
                             </div>
                             <div class="form-group">
                                 <label for="inventory">Inventory:</label>
-                                <input type="number" class="form-control" id="inventory" th:value="${theBook.inventory}">
+                                <input type="number" class="form-control" id="inventory" name="inventory" th:value="${theBook.inventory}">
                             </div>
                             <div class="form-group">
                                 <label>Available</label>
