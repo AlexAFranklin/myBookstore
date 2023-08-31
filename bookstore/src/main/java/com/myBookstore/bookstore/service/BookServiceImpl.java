@@ -74,6 +74,7 @@ public class BookServiceImpl implements IBookService{
             int currentInventory = book.getInventory();
             book.setInventory(currentInventory + newBooksAmount);
             bookRepository.save(book);
+            System.out.println("I am getting inside the book service");
 
             if (book.getInventory() <= 0) {
                 updateAvailability(theId, false);

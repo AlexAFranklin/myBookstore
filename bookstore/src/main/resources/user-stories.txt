@@ -35,6 +35,22 @@ status (enum - REQUEST, CANCELLED, FULFILLED)
 
 
 
+VIEWS:
+
+PUBLIC:
+view all books
+view individual books
+log in
+
+CUSTOMER:
+view button to make purchase request
+view all purchase requests
+
+EMPLOYEE:
+view all purchase requests
+add form - books
+update form - books
+
 
 
 
