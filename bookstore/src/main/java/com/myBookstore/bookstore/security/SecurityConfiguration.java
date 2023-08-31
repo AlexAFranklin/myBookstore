@@ -1,4 +1,4 @@
-package com.SecurityDemo.security.security;
+package com.myBookstore.bookstore.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,28 +23,39 @@ public class SecurityConfiguration {
         return new JdbcUserDetailsManager(dataSource);
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
-                        configurer
-                                .requestMatchers("/").hasAnyRole("CUSTOMER", "EMPLOYEE", "ADMIN")
-                                .requestMatchers("/leaders/**").hasRole("EMPLOYEE")
-                                .requestMatchers("/systems/**").hasRole("ADMIN")
-                                .anyRequest().authenticated()
-                )
-                .formLogin(form ->
-                        form
-                                .loginPage("/showMyLoginPage")
-                                .loginProcessingUrl("/authenticateTheUser")
-                                .permitAll()
-                )
-                .logout(logout -> logout.permitAll())
-                .exceptionHandling(configurer ->
-                        configurer.accessDeniedPage("/access-denied"));
+                configurer
+                        .requestMatchers("/**").permitAll() // Allow access to all endpoints without authentication
+        );
+
+        http.csrf().disable(); // Disable CSRF protection for simplicity
 
         return http.build();
     }
+
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.authorizeHttpRequests(configurer ->
+//                        configurer
+//                                .requestMatchers("/").hasAnyRole("CUSTOMER", "EMPLOYEE", "ADMIN")
+//                                .requestMatchers("/leaders/**").hasRole("EMPLOYEE")
+//                                .requestMatchers("/systems/**").hasRole("ADMIN")
+//                                .anyRequest().authenticated()
+//                )
+//                .formLogin(form ->
+//                        form
+//                                .loginPage("/showMyLoginPage")
+//                                .loginProcessingUrl("/authenticateTheUser")
+//                                .permitAll()
+//                )
+//                .logout(logout -> logout.permitAll())
+//                .exceptionHandling(configurer ->
+//                        configurer.accessDeniedPage("/access-denied"));
+//
+//        return http.build();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
