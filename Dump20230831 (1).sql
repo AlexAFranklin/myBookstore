@@ -36,7 +36,7 @@ CREATE TABLE `authorities` (
 
 LOCK TABLES `authorities` WRITE;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
-INSERT INTO `authorities` VALUES ('alex1993','ROLE_ADMIN'),('john','ROLE_EMPLOYEE'),('mary','ROLE_EMPLOYEE'),('mary','ROLE_MANAGER'),('susan','ROLE_ADMIN'),('susan','ROLE_EMPLOYEE'),('susan','ROLE_MANAGER');
+INSERT INTO `authorities` VALUES ('Alex','ROLE_EMPLOYEE'),('alex1993','ROLE_ADMIN'),('BuffySummers','ROLE_CUSTOMER'),('Ehsan','ROLE_EMPLOYEE'),('Giles','ROLE_EMPLOYEE'),('hello_imauser','ROLE_CUSTOMER'),('john','ROLE_EMPLOYEE'),('mary','ROLE_EMPLOYEE'),('mary','ROLE_MANAGER'),('susan','ROLE_ADMIN'),('susan','ROLE_EMPLOYEE'),('susan','ROLE_MANAGER');
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('alex1993','$2a$10$lRetscLZz/AVn5X6.MjPj.I1oZVyYkbdE1iMS.ttl1ErrWp24XkjW','Alexandra Franklin','alexandra.a.franklin@gmail.com',1),('alexandra93','{noop}hello123','Alexandra Franklin','alexandra.a.franklin@gmail.com',1),('john','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q','john smith','john.smith@gmail.com',1),('mary','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q','mary sure','mary.sue@gmail.com',1),('susan','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q','susan jones','susan.jones@gmail.com',1);
+INSERT INTO `users` VALUES ('Alex','$2a$10$CDYsqhgdfA2UNkkks2tcYOR0apkGzbpP81kxlAZkGYeAmT3yUv1XK','Alex Franklin','alexandra.a.franklin@gmail.com',1),('alex1993','$2a$10$lRetscLZz/AVn5X6.MjPj.I1oZVyYkbdE1iMS.ttl1ErrWp24XkjW','Alexandra Franklin','alexandra.a.franklin@gmail.com',1),('alexandra93','{noop}hello123','Alexandra Franklin','alexandra.a.franklin@gmail.com',1),('BuffySummers','$2a$10$a5SXIBlEaViN.ua44EOMTeS4xWx/OFHK5qQtkFE1uIeNGMvnsZhra','Buffy Summers','vampire.slayer@gmail.com',1),('Ehsan','$2a$10$zAyAM3cVFHoYmpbSlUCw4uq.HbfgAKSlm2f/aCm22zrQaydYaqWxu','Ehsan Motlagh','ehsan@gmail.com',1),('Giles','$2a$10$tXKtKD1xIUXPDMkCknOukOML95JC4xscrZv/BXMUcDcMsQk2dRmum','Rupert Giles','r.giles@gmail.com',1),('hello_imauser','$2a$10$aWd0JACsvhC/xvTEeK18juRa.kiKC9Amjknc.wITfYzx2fZCxFXWa','User Name','ima.user@gmail.com',1),('john','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q','john smith','john.smith@gmail.com',1),('mary','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q','mary sure','mary.sue@gmail.com',1),('susan','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q','susan jones','susan.jones@gmail.com',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -143,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-31 12:53:20
+-- Dump completed on 2023-08-31 16:46:05
