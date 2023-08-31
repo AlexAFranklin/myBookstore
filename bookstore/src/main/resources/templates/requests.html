@@ -13,7 +13,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-    <a class="navbar-brand mx-4" href="#">myBookstore</a>
+    <a class="navbar-brand mx-4" href="/books">myBookstore</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,31 +21,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/books}">All Books <span class="sr-only"></span></a>
+                <a class="nav-link" href="#">All Requests <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Requested<span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/ROMANCE}">Romance</a>
+                <a class="nav-link" href="#">Fulfilled</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/NON_FICTION}">Non-Fiction</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/GRAPHIC_NOVEL}">Graphic Novels</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/SCIENCE_FICTION}">Science Fiction</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/FANTASY}">Fantasy</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/CLASSIC}">Classics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/FICTION}">Fiction</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/books/genre/YOUNG_ADULT}">Young Adult</a>
+                <a class="nav-link" href="#">Cancelled</a>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -56,9 +41,6 @@
                 <a class="nav-link" href="#">Purchase Requests</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Add Book</a>
-            </li>
-            <li class="nav-item">
                 <a class="btn btn-info mx-1" href="#">Log In</a>
             </li>
             <li class="nav-item">
@@ -67,9 +49,6 @@
             <li class="nav-item">
                 <a class="btn btn-warning mx-1" href="#">Logout</a>
             </li>
-
-
-
         </ul>
     </div>
 </nav>
