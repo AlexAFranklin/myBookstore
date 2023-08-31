@@ -61,7 +61,10 @@ public class BookController {
         return "books";
     }
 
-
+@GetMapping("/newAddPage")
+    public String newAddPage(){
+        return "addbook";
+}
 
 
 //    @GetMapping("/all/{id}")

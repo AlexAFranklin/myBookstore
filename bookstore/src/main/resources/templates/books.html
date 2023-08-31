@@ -64,8 +64,9 @@
             </li>
 
             <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
-                <a class="nav-link" href="#">Add Book</a>
+                <a class="nav-link" th:href="@{/books/newAddPage}">Add Book</a>
             </li>
+
             </p>
             <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
                 <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In</a>
