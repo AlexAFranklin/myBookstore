@@ -28,9 +28,15 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/**").permitAll() // Allow access to all endpoints without authentication
-        );
+        ).formLogin(form ->
+                        form
+                                .loginPage("/showMyLoginPage")
+                                .loginProcessingUrl("/authenticateTheUser")
+                                .permitAll()
+                )
+        ;
 
-        http.csrf().disable(); // Disable CSRF protection for simplicity
+//        http.csrf().disable(); // Disable CSRF protection for simplicity
 
         return http.build();
     }
