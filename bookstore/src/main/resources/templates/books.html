@@ -190,10 +190,18 @@ private boolean available; -->
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" id="description" rows="6" th:text="${theBook.description}">
-</textarea>
+                                <textarea class="form-control" id="description" rows="6" th:text="${theBook.description}"></textarea>
 
-                            </div>
+
+
+                                <label>Genre</label>
+                                <div class="form-check" th:each="genre : ${T(com.myBookstore.bookstore.entity.Genre).values()}">
+                                    <input class="form-check-input" type="radio" th:id="${genre}" th:name="genre" th:value="${genre.name()}"
+                                           th:checked="${genre.name() == theBook.genre}">
+                                    <label class="form-check-label" th:for="${genre}" th:text="${genre}"></label>
+                                </div>
+
+
                             <div class="form-group">
                                 <label for="price">Price:</label>
                                 <input type="number" class="form-control" id="price" th:value="${theBook.price}">
