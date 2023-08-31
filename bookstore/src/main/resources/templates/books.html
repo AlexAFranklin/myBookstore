@@ -82,6 +82,7 @@
 
 
 
+
 <table class="table table-hover m-5">
     <thead>
     <tr>
@@ -103,11 +104,42 @@
         <td th:text="${theBook.author}" />
         <td th:text="${theBook.genre.displayValue}" />
         <td th:text="${theBook.inventory}" />
+        <td>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addInventory">
+                Add inventory
+            </button>
+
+        </td>
+
+
         <td th:text="${theBook.available}" />
         <td>
             <a href="#" data-toggle="modal" data-target="#bookDetails" class="btn btn-primary p-1">Details(Book)</a>
             <a href="#" data-toggle="modal" data-target="#updateBook" class="btn btn-primary p-1">Details(Employee)</a>
         </td>
+
+        <!-- Add Inventory modal -->
+        <div class="modal fade" id="addInventory" tabindex="-1" role="dialog" aria-labelledby="addInventory" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addInventory_title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         <!-- DETAILS MODAL -->
         <div class="modal fade" id="bookDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -117,7 +149,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><span th:text="${theBook.title}" class="h1"></span><br><span
                                 class="h5">By: <span th:text="${theBook.author}"></span></span>
-
+                        </h5>
                     </div>
                     <div class="modal-body">
 
@@ -142,7 +174,8 @@
                         <h5 class="modal-title" id="updateModal">
 
 
-                            Update </h5>
+                            Update
+                        </h5>
 
 
                     </div>
