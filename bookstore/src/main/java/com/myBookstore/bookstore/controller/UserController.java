@@ -43,6 +43,6 @@ public class UserController {
         Authority newAuthority = new Authority(user.getUsername(), "ROLE_CUSTOMER");
         iAuthorityService.save(newAuthority);
 
-        return "redirect:/login?registrationSuccess";
+        return "redirect:/showMyLoginPage?registrationSuccess";
     }
 }
