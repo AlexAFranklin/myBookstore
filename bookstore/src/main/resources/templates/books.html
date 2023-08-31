@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
 <head>
     <meta charset="UTF-8">
@@ -52,26 +53,33 @@
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
+            <p sec:authorize="hasRole('ROLE_CUSTOMER')">
             <li class="nav-item">
                 <a class="nav-link" href="#">myPurchases</a>
             </li>
+            </p>
+            <p sec:authorize="hasRole('ROLE_EMPLOYEE')">
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/requests/all}">Purchase Requests</a>
             </li>
-            <li class="nav-item">
+
+            <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
                 <a class="nav-link" href="#">Add Book</a>
             </li>
-            <li class="nav-item">
+            </p>
+            <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
                 <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In</a>
             </li>
-            <li class="nav-item">
-                <a class="btn btn-warning mx-1" th:href="@{/showRegistration}">Register</a>
+
+            <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-info mx-1" th:href="@{/showRegistration}">Register</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN', 'ROLE_CUSTOMER')">
                 <form action="#" th:action="@{/logout}" method="post">
                     <input type="submit" class="btn btn-warning mx-1" value="Logout">
                 </form>
             </li>
+
 
 
 
@@ -86,37 +94,37 @@
 <table class="table table-hover m-5">
     <thead>
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">ISBN</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">ID</th>
+        <th sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" scope="col">ISBN</th>
         <th scope="col">Title</th>
         <th scope="col">Author</th>
         <th scope="col">Genre</th>
-        <th scope="col">Inventory</th>
-        <th scope="col">Add</th>
-        <th scope="col">Available</th>
+        <th sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" scope="col">Inventory</th>
+        <th sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" scope="col">Add</th>
+        <th sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" scope="col">Available</th>
         <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="theBook : ${books}">
-        <td th:text="${theBook.id}" />
-        <td th:text="${theBook.isbn}" />
+        <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${theBook.id}" />
+        <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.isbn}" />
         <td th:text="${theBook.title}" />
         <td th:text="${theBook.author}" />
         <td th:text="${theBook.genre.displayValue}" />
-        <td th:text="${theBook.inventory}" />
+        <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.inventory}" />
         <td>
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addInventory">
+            <button sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" type="button" class="btn btn-warning" data-toggle="modal" data-target="#addInventory">
                 Add inventory
             </button>
 
         </td>
 
 
-        <td th:text="${theBook.available}" />
+        <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.available}" />
         <td>
-            <a href="#" data-toggle="modal" data-target="#bookDetails" class="btn btn-primary p-1">Details(Book)</a>
-            <a href="#" data-toggle="modal" data-target="#updateBook" class="btn btn-primary p-1">Details(Employee)</a>
+            <a  href="#" data-toggle="modal" data-target="#bookDetails" class="btn btn-primary p-1">Details(Book)</a>
+            <a sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" href="#" data-toggle="modal" data-target="#updateBook" class="btn btn-primary p-1">Details(Employee)</a>
         </td>
 
         <!-- Add Inventory modal -->
