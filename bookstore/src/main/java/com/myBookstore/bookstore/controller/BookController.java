@@ -8,14 +8,15 @@ import com.myBookstore.bookstore.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-//@Controller
-@RestController
+@Controller
+//@RestController
 @RequestMapping("/books")
 public class BookController {
 
@@ -27,70 +28,84 @@ public class BookController {
     }
 
 
+    // TODO only available to admn and employee
     @GetMapping("/all")
-    public List<Book> findAll() {
-        return iBookService.findAll();
+    public String listAllBooks (Model theModel) {
+        List<Book> theBooks = iBookService.findAll();
+        theModel.addAttribute("books", theBooks);
+        return "books";
     }
 
+
     @GetMapping("")
-    public List<Book> findAllAvailable() {
-        return iBookService.findAllByAvailable(true);
+    public String listAllAvailable (Model theModel) {
+
+    List<Book> theBooks =  iBookService.findAllByAvailable(true);
+    theModel.addAttribute("books", theBooks);
+    return "books";
     }
 
 
     @GetMapping("/genre/all/{genre}")
-    public List<Book> findAllAdmin(@PathVariable Genre genre) {
-        return iBookService.findByGenre(genre);
-
+    public String listByGenre(@PathVariable Genre genre, Model theModel) {
+        List<Book> theBooks = iBookService.findByGenre(genre);
+        theModel.addAttribute("books", theBooks);
+        return "books";
     }
+
 
     @GetMapping("/genre/{genre}")
-    public List<Book> findAll(@PathVariable Genre genre) {
-        return iBookService.findByGenreAndAvailable(genre, true);
-
-    }
-    @GetMapping("/all/{id}")
-    public ResponseEntity<Book> findByIdAdmin(@PathVariable int id) {
-        return iBookService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.noContent().build());
-
+    public String listByGenreAvailable(@PathVariable Genre genre, Model theModel) {
+        List<Book> theBooks = iBookService.findByGenreAndAvailable(genre, true);
+        theModel.addAttribute("books", theBooks);
+        return "books";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Book> findById(@PathVariable int id) {
-        return iBookService.findByIdAndAvailable(id, true)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.noContent().build());
 
-    }
 
-    @PostMapping("")
-    public void addBook(@RequestBody Book newBook) {
 
-        iBookService.save(newBook);
-    }
-
-    @PostMapping("update/{id}")
-    public void updateBook(@RequestBody Book newBook) {
-
-        iBookService.save(newBook);
-    }
-
-    @GetMapping("/price/{price}")
-    public List<Book> findByPrice(@PathVariable double price) {
-        return iBookService.findByPrice(price);
-    }
-
-    @PostMapping("/inventory-update/{id}")
-    public void updateInventory(@PathVariable int id, @RequestBody Map<String, Integer> requestBody){
-        int inventory = requestBody.get("inventory");
-        iBookService.updateInventory(id, inventory);
-    }
-
-    @PostMapping("/available-update/{id}")
-    public void updateAvailability(@PathVariable int id, @RequestBody Map<String, Boolean> requestBody){
-        boolean available = requestBody.get("available");
-        iBookService.updateAvailability(id, available);
-    }
+//    @GetMapping("/all/{id}")
+//    public ResponseEntity<Book> findByIdAdmin(@PathVariable int id) {
+//        return iBookService.findById(id)
+//                .map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.noContent().build());
+//
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Book> findById(@PathVariable int id) {
+//        return iBookService.findByIdAndAvailable(id, true)
+//                .map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.noContent().build());
+//
+//    }
+//
+//    @PostMapping("")
+//    public void addBook(@RequestBody Book newBook) {
+//
+//        iBookService.save(newBook);
+//    }
+//
+//    @PostMapping("update/{id}")
+//    public void updateBook(@RequestBody Book newBook) {
+//
+//        iBookService.save(newBook);
+//    }
+//
+//    @GetMapping("/price/{price}")
+//    public List<Book> findByPrice(@PathVariable double price) {
+//        return iBookService.findByPrice(price);
+//    }
+//
+//    @PostMapping("/inventory-update/{id}")
+//    public void updateInventory(@PathVariable int id, @RequestBody Map<String, Integer> requestBody){
+//        int inventory = requestBody.get("inventory");
+//        iBookService.updateInventory(id, inventory);
+//    }
+//
+//    @PostMapping("/available-update/{id}")
+//    public void updateAvailability(@PathVariable int id, @RequestBody Map<String, Boolean> requestBody){
+//        boolean available = requestBody.get("available");
+//        iBookService.updateAvailability(id, available);
+//    }
 }
