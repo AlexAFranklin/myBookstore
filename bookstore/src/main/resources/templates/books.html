@@ -131,112 +131,190 @@ private boolean available; -->
             <a href="#" data-toggle="modal" data-target="#bookDetails" class="btn btn-primary p-1">Details(Book)</a>
             <a href="#" data-toggle="modal" data-target="#updateBook" class="btn btn-primary p-1">Details(Employee)</a>
         </td>
+
+        <!-- DETAILS MODAL -->
+        <div class="modal fade" id="bookDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><span th:text="${theBook.title}" class="h1"></span><br><span
+                                class="h5">By: <span th:text="${theBook.author}"></span></span>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <p><span th:text="${theBook.description}"></span></p>
+                        <hr>
+                        <p>Price: $<span th:text="${theBook.price}"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Purchase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPDATE MODAL -->
+        <div class="modal fade" id="updateBook" tabindex="-1" role="dialog" aria-labelledby="updateModal"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModal">
+
+
+                            Update </h5>
+
+
+                    </div>
+                    <div class="modal-body">
+
+                        <form>
+                            <div class="form-group">
+                                <label for="id">Book Id:</label>
+                                <input type="number" class="form-control" id="id" th:value="${theBook.id}">
+                            </div>
+                            <div class="form-group">
+                                <label for="isbn">Book Id:</label>
+                                <input type="text" class="form-control" id="isbn" th:value="${theBook.isbn}">
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" th:value="${theBook.title}">
+                            </div>
+                            <div class="form-group">
+                                <label for="publisher">Publisher</label>
+                                <input type="text" class="form-control" id="publisher" th:value="${theBook.publisher}">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" rows="6" th:text="${theBook.description}">
+</textarea>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price:</label>
+                                <input type="number" class="form-control" id="price" th:value="${theBook.price}">
+                            </div>
+                            <div class="form-group">
+                                <label for="inventory">Inventory:</label>
+                                <input type="number" class="form-control" id="inventory" th:value="${theBook.inventory}">
+                            </div>
+                            <div class="form-group">
+                                <label>Available</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="available" id="yes" value="yes"
+                                           th:checked="${theBook.available == true}">
+                                    <label class="form-check-label" for="yes">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="available" id="no" value="no"
+                                           th:checked="${theBook.available == false}">
+                                    <label class="form-check-label" for="no">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </tr>
     </tbody>
 
 </table>
-<!-- DETAILS MODAL -->
-<div class="modal fade" id="bookDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span class="h1">Crime and Punishment</span><br><span
-                        class="h5">By: Fyodor Dostoyevsky</span></h5>
-
-            </div>
-            <div class="modal-body">
-
-                <p>Raskolnikov, a destitute and desperate former student, wanders through the slums of St Petersburg
-                    and commits a random murder without remorse or regret. He imagines himself to be a great man, a
-                    Napoleon: acting for a higher purpose beyond conventional moral law. But as he embarks on a
-                    dangerous game of cat and mouse with a suspicious police investigator, Raskolnikov is pursued by
-                    the growing voice of his conscience and finds the noose of his own guilt tightening around his
-                    neck. Only Sonya, a downtrodden sex worker, can offer the chance of redemption.</p>
-                <hr>
-                <p>Price: $19.99</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Purchase</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- UPDATE MODAL -->
-<div class="modal fade" id="updateBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
 
 
-                    Update
+<!--&lt;!&ndash; UPDATE MODAL &ndash;&gt;-->
+<!--<div class="modal fade" id="updateBook" tabindex="-1" role="dialog" aria-labelledby="updateModal"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="updateModal">-->
 
 
-            </div>
-            <div class="modal-body">
-
-                <form>
-                    <div class="form-group">
-                        <label for="id">Book Id:</label>
-                        <input type="number" class="form-control" id="id" placeholder="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="isbn">Book Id:</label>
-                        <input type="text" class="form-control" id="isbn" placeholder="978-0143058144">
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" placeholder="Crime and Punishment">
-                    </div>
-                    <div class="form-group">
-                        <label for="publisher">Publisher</label>
-                        <input type="text" class="form-control" id="publisher" placeholder="Penguin Classics">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description"
-                                  rows="6">Raskolnikov, a destitute and desperate former student, wanders through the slums of St Petersburg and commits a random murder without remorse or regret. He imagines himself to be a great man, a Napoleon: acting for a higher purpose beyond conventional moral law. But as he embarks on a dangerous game of cat and mouse with a suspicious police investigator, Raskolnikov is pursued by the growing voice of his conscience and finds the noose of his own guilt tightening around his neck. Only Sonya, a downtrodden sex worker, can offer the chance of redemption.</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Price:</label>
-                        <input type="number" class="form-control" id="price" placeholder="19.99">
-                    </div>
-                    <div class="form-group">
-                        <label for="inventory">Inventory:</label>
-                        <input type="number" class="form-control" id="inventory" placeholder="25">
-                    </div>
-                    <div class="form-group">
-                        <label>Available</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="available" id="yes" value="yes"
-                                   checked>
-                            <label class="form-check-label" for="yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="available" id="no" value="no">
-                            <label class="form-check-label" for="no">
-                                No
-                            </label>
-                        </div>
-                    </div>
+<!--                    Update-->
 
 
-                    <button type="submit" class="btn btn-primary mt-5">Submit</button>
-                </form>
+<!--            </div>-->
+<!--            <div class="modal-body">-->
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--                <form>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="id">Book Id:</label>-->
+<!--                        <input type="number" class="form-control" id="id" placeholder="1">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="isbn">Book Id:</label>-->
+<!--                        <input type="text" class="form-control" id="isbn" placeholder="978-0143058144">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="title">Title</label>-->
+<!--                        <input type="text" class="form-control" id="title" placeholder="Crime and Punishment">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="publisher">Publisher</label>-->
+<!--                        <input type="text" class="form-control" id="publisher" placeholder="Penguin Classics">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="description">Description</label>-->
+<!--                        <textarea class="form-control" id="description"-->
+<!--                                  rows="6">Raskolnikov, a destitute and desperate former student, wanders through the slums of St Petersburg and commits a random murder without remorse or regret. He imagines himself to be a great man, a Napoleon: acting for a higher purpose beyond conventional moral law. But as he embarks on a dangerous game of cat and mouse with a suspicious police investigator, Raskolnikov is pursued by the growing voice of his conscience and finds the noose of his own guilt tightening around his neck. Only Sonya, a downtrodden sex worker, can offer the chance of redemption.</textarea>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="price">Price:</label>-->
+<!--                        <input type="number" class="form-control" id="price" placeholder="19.99">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="inventory">Inventory:</label>-->
+<!--                        <input type="number" class="form-control" id="inventory" placeholder="25">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>Available</label>-->
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input" type="radio" name="available" id="yes" value="yes"-->
+<!--                                   checked>-->
+<!--                            <label class="form-check-label" for="yes">-->
+<!--                                Yes-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input" type="radio" name="available" id="no" value="no">-->
+<!--                            <label class="form-check-label" for="no">-->
+<!--                                No-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                    <button type="submit" class="btn btn-primary mt-5">Submit</button>-->
+<!--                </form>-->
+
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 
