@@ -195,10 +195,9 @@ private boolean available; -->
 
 
                                 <label>Genre</label>
-                                <div class="form-check" th:each="genre : ${T(com.myBookstore.bookstore.entity.Genre).values()}">
-                                    <input class="form-check-input" type="radio" th:id="${genre}" th:name="genre" th:value="${genre.name()}"
-                                           th:checked="${genre.name() == theBook.genre}">
-                                    <label class="form-check-label" th:for="${genre}" th:text="${genre}"></label>
+                                <div class="form-check" th:each="genreOpt : ${T(com.myBookstore.bookstore.entity.Genre).values()}">
+                                    <input class="form-check-input" type="radio" th:id="${genreOpt}" th:name="genreOpt" th:value="${genreOpt}"
+                                           th:checked="${genreOpt== theBook.genre}" th:text="${genreOpt.displayValue}">
                                 </div>
 
 
