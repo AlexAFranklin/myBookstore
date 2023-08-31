@@ -102,11 +102,14 @@ public class BookController {
 //        return iBookService.findByPrice(price);
 //    }
 //
-//    @PostMapping("/inventory-update/{id}")
-//    public void updateInventory(@PathVariable int id, @RequestBody Map<String, Integer> requestBody){
-//        int inventory = requestBody.get("inventory");
-//        iBookService.updateInventory(id, inventory);
-//    }
+    @PostMapping("/inventory-update")
+    public String updateInventory(@ModelAttribute("theBook") Book theBook){
+        int inventory = theBook.getInventory();
+        int id = theBook.getId();
+        System.out.println(id);
+        iBookService.updateInventory(id, inventory);
+        return "redirect:/books/all";
+    }
 //
 //    @PostMapping("/available-update/{id}")
 //    public void updateAvailability(@PathVariable int id, @RequestBody Map<String, Boolean> requestBody){
