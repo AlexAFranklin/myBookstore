@@ -30,7 +30,7 @@ public class BookController {
 
     // TODO only available to admn and employee
     @GetMapping("/all")
-    public String listAllBooks (Model theModel) {
+    public String listAllBooks(Model theModel) {
         List<Book> theBooks = iBookService.findAll();
         theModel.addAttribute("books", theBooks);
         return "books";
@@ -38,11 +38,11 @@ public class BookController {
 
 
     @GetMapping("")
-    public String listAllAvailable (Model theModel) {
+    public String listAllAvailable(Model theModel) {
 
-    List<Book> theBooks =  iBookService.findAllByAvailable(true);
-    theModel.addAttribute("books", theBooks);
-    return "books";
+        List<Book> theBooks = iBookService.findAllByAvailable(true);
+        theModel.addAttribute("books", theBooks);
+        return "books";
     }
 
 
@@ -61,10 +61,11 @@ public class BookController {
         return "books";
     }
 
-@GetMapping("/newAddPage")
-    public String newAddPage(){
+    @GetMapping("/newAddPage")
+    public String newAddPage(Model theModel) {
+
         return "addbook";
-}
+    }
 
 
 //    @GetMapping("/all/{id}")
