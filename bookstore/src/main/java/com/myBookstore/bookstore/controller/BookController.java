@@ -63,12 +63,13 @@ public class BookController {
 
     @GetMapping("/newAddPage")
     public String newAddPage(Model theModel) {
-
+        Book theBook = new Book();
+        theModel.addAttribute("theBook", theBook);
         return "addbook";
     }
 
 
-//    @GetMapping("/all/{id}")
+    //    @GetMapping("/all/{id}")
 //    public ResponseEntity<Book> findByIdAdmin(@PathVariable int id) {
 //        return iBookService.findById(id)
 //                .map(ResponseEntity::ok)
@@ -97,14 +98,23 @@ public class BookController {
         iBookService.save(newBook);
         return "redirect:/books/all";
     }
-//
+
+    @PostMapping("/save")
+    public String saveBook(@ModelAttribute("book") Book newBook) {
+        System.out.println(newBook.getGenre());
+        System.out.println(newBook.getIsbn());
+        iBookService.save(newBook);
+        return "redirect:/books/all";
+    }
+
+    //
 //    @GetMapping("/price/{price}")
 //    public List<Book> findByPrice(@PathVariable double price) {
 //        return iBookService.findByPrice(price);
 //    }
 //
     @PostMapping("/inventory-update")
-    public String updateInventory(@ModelAttribute("theBook") Book theBook){
+    public String updateInventory(@ModelAttribute("theBook") Book theBook) {
         int inventory = theBook.getInventory();
         int id = theBook.getId();
         System.out.println(id);
