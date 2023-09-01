@@ -22,7 +22,7 @@ public class SecurityConfiguration {
     private static final String[] AUTH_ANYONE = {
             "/",
             "/books",
-            "/genres/**"
+            "/books/genre/**"
     };
 
 
@@ -47,14 +47,32 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                                 configurer
+                                        .requestMatchers("books/genre/all").hasAnyRole("ADMIN", "EMPLOYEE")
                                         .requestMatchers(AUTH_ANYONE).permitAll()
                                         .requestMatchers(AUTH_CUSTOMER).hasAnyRole("ADMIN", "EMPLOYEE", "CUSTOMER")
                                         .requestMatchers(AUTH_ADMIN).hasAnyRole("ADMIN", "EMPLOYEE")
                                         .anyRequest().authenticated()
 
+                ).formLogin(form ->
+                        form
+                                .loginPage("/showMyLoginPage")
+                                .loginProcessingUrl("/authenticateTheUser")
+                                .permitAll()
+                ).logout(logout -> logout.permitAll())
+                .exceptionHandling(configurer ->
+                        configurer.accessDeniedPage("/access-denied"));
+        return http.build();
+    }
 
 
-                                       // .requestMatchers("/**").permitAll()
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+
+    // .requestMatchers("/**").permitAll()
 //                        .requestMatchers("", "/", "/index.html?continue").permitAll()
 //                        .requestMatchers("/books", "/books/", "/books/genre/**").permitAll()
 //                        .requestMatchers("/books/all", "/books/genre/all/**", "/books/newAddPage",
@@ -86,49 +104,5 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/requests/approve").hasAnyRole("EMPLOYEE", "ADMIN")
 //                        .requestMatchers("/requests/status/**").hasAnyRole("EMPLOYEE", "ADMIN")
 //                        .requestMatchers("/requests/**").hasAnyRole("EMPLOYEE", "ADMIN")
-
-
-                ).formLogin(form ->
-                        form
-                                .loginPage("/showMyLoginPage")
-                                .loginProcessingUrl("/authenticateTheUser")
-                                .permitAll()
-                ).logout(logout -> logout.permitAll())
-                .exceptionHandling(configurer ->
-                        configurer.accessDeniedPage("/access-denied"));
-        ;
-
-//        http.csrf().disable(); // Disable CSRF protection for simplicity
-
-        return http.build();
-    }
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.authorizeHttpRequests(configurer ->
-//                        configurer
-//                                .requestMatchers("/").hasAnyRole("CUSTOMER", "EMPLOYEE", "ADMIN")
-//                                .requestMatchers("/leaders/**").hasRole("EMPLOYEE")
-//                                .requestMatchers("/systems/**").hasRole("ADMIN")
-//                                .anyRequest().authenticated()
-//                )
-//                .formLogin(form ->
-//                        form
-//                                .loginPage("/showMyLoginPage")
-//                                .loginProcessingUrl("/authenticateTheUser")
-//                                .permitAll()
-//                )
-//                .logout(logout -> logout.permitAll())
-//                .exceptionHandling(configurer ->
-//                        configurer.accessDeniedPage("/access-denied"));
-//
-//        return http.build();
-//    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 
 }
