@@ -65,79 +65,70 @@
                 </form>
             </li>
         </ul>
-
-        <!--        <ul class="navbar-nav ms-auto">-->
-        <!--            <li class="nav-item">-->
-        <!--                <a class="nav-link" href="#">myPurchases</a>-->
-        <!--            </li>-->
-        <!--            <li class="nav-item">-->
-        <!--                <a class="nav-link" href="#">Purchase Requests</a>-->
-        <!--            </li>-->
-        <!--            <li class="nav-item">-->
-        <!--                <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In</a>-->
-        <!--            </li>-->
-        <!--            <li class="nav-item">-->
-        <!--                <a class="btn btn-warning mx-1" href="#">Register</a>-->
-        <!--            </li>-->
-        <!--            <li class="nav-item">-->
-        <!--                <form action="#" th:action="@{/logout}" method="post">-->
-        <!--                    <input type="submit" class="btn btn-warning mx-1" value="Logout">-->
-        <!--                </form>-->
-        <!--            </li>-->
-        <!--        </ul>-->
     </div>
 </nav>
+<div class="container-fluid">
+    <table class="table table-sm table-hover mt-5 table-striped table-info">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Book</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Requested Date</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Book Title</th>
+            <th scope="col">Book Author</th>
+            <th scope="col">Book Price</th>
+            <th scope="col">Book Inventory</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="theRequest : ${requests}">
+            <td th:text="${theRequest.id}"/>
+            <td th:text="${theRequest.bookId}"/>
+            <td th:text="${theRequest.customerId}"/>
+            <td th:text="${theRequest.employeeId}"/>
+            <td th:text="${theRequest.requestDate}"/>
+            <td th:text="${theRequest.updateDate}"/>
+            <td th:text="${theRequest.status}"/>
+            <td th:text="${theRequest.bookTitle}"/>
+            <td th:text="${theRequest.bookAuthor}"/>
+            <td th:text="${theRequest.bookPrice}"/>
+            <td th:text="${theRequest.bookInventory}"/>
+            <td>
+                <div class="row">
 
-<table class="table table-hover m-5">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Book</th>
-        <th scope="col">Customer</th>
-        <th scope="col">Employee</th>
-        <th scope="col">Requested Date</th>
-        <th scope="col">Updated Date</th>
-        <th scope="col">Status</th>
-        <th scope="col">Book Title</th>
-        <th scope="col">Book Author</th>
-        <th scope="col">Book Price</th>
-        <th scope="col">Book Inventory</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="theRequest : ${requests}">
-        <td th:text="${theRequest.id}"/>
-        <td th:text="${theRequest.bookId}"/>
-        <td th:text="${theRequest.customerId}"/>
-        <td th:text="${theRequest.employeeId}"/>
-        <td th:text="${theRequest.requestDate}"/>
-        <td th:text="${theRequest.updateDate}"/>
-        <td th:text="${theRequest.status}"/>
-        <td th:text="${theRequest.bookTitle}"/>
-        <td th:text="${theRequest.bookAuthor}"/>
-        <td th:text="${theRequest.bookPrice}"/>
-        <td th:text="${theRequest.bookInventory}"/>
-        <td>
+                    <div class="col-md-3">
+                        <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_CUSTOMER')"
+                              th:action="@{/requests/cancel}" th:object="${theRequest}" method="post">
+                            <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
+                            <input type="text" class="form-control" name="employeeId"
+                                   th:value="${#authentication.principal.username}" hidden="hidden">
+                            <button type="submit" class="btn btn-danger text-light p-1 shadow-lg">Cancel</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')" th:action="@{/requests/approve}"
+                              th:object="${theRequest}" method="post">
+                            <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
+                            <input type="text" class="form-control" name="employeeId"
+                                   th:value="${#authentication.principal.username}" hidden="hidden">
+                            <button type="submit" class="btn btn-outline-dark shadow-lg  mx-2 p-1">Approve</button>
+                        </form>
+                    </div>
 
-            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_CUSTOMER')"
-                  th:action="@{/requests/cancel}" th:object="${theRequest}" method="post">
-                <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
-                <input type="text" class="form-control" name="employeeId"
-                       th:value="${#authentication.principal.username}" hidden="hidden">
-                <button type="submit" class="btn btn-success p-1">Cancel</button>
-            </form>
-            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')" th:action="@{/requests/approve}"
-                  th:object="${theRequest}" method="post">
-                <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
-                <input type="text" class="form-control" name="employeeId"
-                       th:value="${#authentication.principal.username}" hidden="hidden">
-                <button type="submit" class="btn btn-success p-1">Approve</button>
-            </form>
-        </td>
-    </tr>
 
-    </tbody>
-</table>
+
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
 <!-- DETAILS MODAL -->
 <div class="modal fade" id="bookDetails" tabindex="-1" role="dialog" aria-labelledby="title_id"
      aria-hidden="true">
