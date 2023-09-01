@@ -22,7 +22,8 @@ public class SecurityConfiguration {
     private static final String[] AUTH_ANYONE = {
             "/",
             "/books",
-            "/books/genre/*"
+            "/books/genre/*",
+            "/showRegistration"
     };
 
 
