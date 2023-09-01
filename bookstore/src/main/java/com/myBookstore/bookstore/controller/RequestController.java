@@ -36,7 +36,7 @@ public class RequestController {
         newRequest.setStatus("REQUEST");
         System.out.println(newRequest.getBookId());
         iRequestService.save(newRequest);
-        return "redirect:books";
+        return "redirect:/books";
     }
 
 
@@ -54,7 +54,7 @@ public class RequestController {
         return "redirect:/requests";
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public String listAllRequests (Model theModel) {
         List <RequestViewDto> requestList = iRequestService.getAllRequestsWithBookDetails();
         theModel.addAttribute("requests", requestList);
