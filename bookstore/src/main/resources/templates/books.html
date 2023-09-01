@@ -52,11 +52,11 @@
         </ul>
 
         <ul class="navbar-nav ms-auto">
-            <p sec:authorize="hasRole('ROLE_CUSTOMER')">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">myPurchases</a>
-                </li>
-            </p>
+<!--            <p sec:authorize="hasRole('ROLE_CUSTOMER')">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">myPurchases</a>-->
+<!--                </li>-->
+<!--            </p>-->
             <p sec:authorize="hasRole('ROLE_EMPLOYEE')">
                 <li class="nav-item">
                     <a class="btn btn-outline-info text-light mx-1" th:href="@{/requests}">Purchase Requests</a>

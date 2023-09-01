@@ -13,8 +13,8 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-    <a class="navbar-brand mx-4" href="/books">myBookstore</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
+    <a class="navbar-brand mx-4  text-white" th:href="@{/books}">myBookstore</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -22,37 +22,69 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/requests}">All Requests <span class="sr-only"></span></a>
+                <a class="nav-link  text-warning" th:href="@{/requests}">All Requests <span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/requests/status/Requests}">Requested<span class="sr-only"></span></a>
+                <a class="nav-link text-light" th:href="@{/requests/status/Request}">Requested<span
+                        class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/requests/status/FULFILLED}">Fulfilled</a>
+                <a class="nav-link text-light" th:href="@{/requests/status/FULFILLED}">Fulfilled</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/requests/status/CANCELLED}">Cancelled</a>
+                <a class="nav-link text-light" th:href="@{/requests/status/CANCELLED}">Cancelled</a>
             </li>
         </ul>
+
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">myPurchases</a>
+            <!--            <p sec:authorize="hasRole('ROLE_CUSTOMER')">-->
+            <!--                <li class="nav-item">-->
+            <!--                    <a class="nav-link" href="#">myPurchases</a>-->
+            <!--                </li>-->
+            <!--            </p>-->
+            <p sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                <li class="nav-item">
+                    <a class="btn btn-outline-info text-light mx-1" th:href="@{/requests}">Purchase Requests</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                    <a class="btn btn-outline-info text-light mx-3" th:href="@{/books/newAddPage}">Add Book</a>
+                </li>
+
+            </p>
+            <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-outline-success mx-2" th:href="@{/showMyLoginPage}">Log In</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Purchase Requests</a>
+
+            <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-outline-warning mx-2" th:href="@{/showRegistration}">Register</a>
             </li>
-            <li class="nav-item">
-                <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In</a>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-warning mx-1" href="#">Register</a>
-            </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN', 'ROLE_CUSTOMER')">
                 <form action="#" th:action="@{/logout}" method="post">
-                    <input type="submit" class="btn btn-warning mx-1" value="Logout">
+                    <input type="submit" class="btn btn-outline-warning mx-2" value="Logout">
                 </form>
             </li>
         </ul>
+
+        <!--        <ul class="navbar-nav ms-auto">-->
+        <!--            <li class="nav-item">-->
+        <!--                <a class="nav-link" href="#">myPurchases</a>-->
+        <!--            </li>-->
+        <!--            <li class="nav-item">-->
+        <!--                <a class="nav-link" href="#">Purchase Requests</a>-->
+        <!--            </li>-->
+        <!--            <li class="nav-item">-->
+        <!--                <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In</a>-->
+        <!--            </li>-->
+        <!--            <li class="nav-item">-->
+        <!--                <a class="btn btn-warning mx-1" href="#">Register</a>-->
+        <!--            </li>-->
+        <!--            <li class="nav-item">-->
+        <!--                <form action="#" th:action="@{/logout}" method="post">-->
+        <!--                    <input type="submit" class="btn btn-warning mx-1" value="Logout">-->
+        <!--                </form>-->
+        <!--            </li>-->
+        <!--        </ul>-->
     </div>
 </nav>
 
@@ -74,28 +106,32 @@
     </thead>
     <tbody>
     <tr th:each="theRequest : ${requests}">
-        <td th:text="${theRequest.id}" />
-        <td th:text="${theRequest.bookId}" />
-        <td th:text="${theRequest.customerId}" />
-        <td th:text="${theRequest.employeeId}" />
-        <td th:text="${theRequest.requestDate}" />
-        <td th:text="${theRequest.updateDate}" />
-        <td th:text="${theRequest.status}" />
-        <td th:text="${theRequest.bookTitle}" />
-        <td th:text="${theRequest.bookAuthor}" />
-        <td th:text="${theRequest.bookPrice}" />
-        <td th:text="${theRequest.bookInventory}" />
+        <td th:text="${theRequest.id}"/>
+        <td th:text="${theRequest.bookId}"/>
+        <td th:text="${theRequest.customerId}"/>
+        <td th:text="${theRequest.employeeId}"/>
+        <td th:text="${theRequest.requestDate}"/>
+        <td th:text="${theRequest.updateDate}"/>
+        <td th:text="${theRequest.status}"/>
+        <td th:text="${theRequest.bookTitle}"/>
+        <td th:text="${theRequest.bookAuthor}"/>
+        <td th:text="${theRequest.bookPrice}"/>
+        <td th:text="${theRequest.bookInventory}"/>
         <td>
 
-            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_CUSTOMER')"  th:action="@{/requests/cancel}" th:object="${theRequest}" method="post">
+            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_CUSTOMER')"
+                  th:action="@{/requests/cancel}" th:object="${theRequest}" method="post">
                 <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
-                <input type="text" class="form-control" name="employeeId" th:value="${#authentication.principal.username}" hidden="hidden">
+                <input type="text" class="form-control" name="employeeId"
+                       th:value="${#authentication.principal.username}" hidden="hidden">
                 <button type="submit" class="btn btn-success p-1">Cancel</button>
             </form>
-            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:action="@{/requests/approve}" th:object="${theRequest}" method="post">
-                    <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
-                    <input type="text" class="form-control" name="employeeId" th:value="${#authentication.principal.username}" hidden="hidden">
-                    <button type="submit" class="btn btn-success p-1" >Approve</button>
+            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')" th:action="@{/requests/approve}"
+                  th:object="${theRequest}" method="post">
+                <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
+                <input type="text" class="form-control" name="employeeId"
+                       th:value="${#authentication.principal.username}" hidden="hidden">
+                <button type="submit" class="btn btn-success p-1">Approve</button>
             </form>
         </td>
     </tr>
@@ -204,9 +240,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
