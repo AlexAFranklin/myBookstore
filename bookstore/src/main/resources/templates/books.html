@@ -63,7 +63,7 @@
                 </li>
 
                 <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
-                    <a class="nav-link" th:href="@{/books/newAddPage}">Add Book</a>
+                    <a class="nav-link btn btn-outline-light" th:href="@{/books/newAddPage}">Add Book</a>
                 </li>
 
             </p>
@@ -76,7 +76,7 @@
             </li>
             <li class="nav-item" sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN', 'ROLE_CUSTOMER')">
                 <form action="#" th:action="@{/logout}" method="post">
-                    <input type="submit" class="btn btn-warning mx-1" value="Logout">
+                    <input type="submit" class="btn btn-outline-warning mx-2" value="Logout">
                 </form>
             </li>
         </ul>
