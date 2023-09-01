@@ -36,7 +36,7 @@ public class RequestController {
         newRequest.setStatus("REQUEST");
         System.out.println(newRequest.getBookId());
         iRequestService.save(newRequest);
-        return "books";
+        return "redirect:books";
     }
 
 

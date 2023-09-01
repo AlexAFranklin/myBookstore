@@ -27,23 +27,37 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                 configurer
-                        .requestMatchers("").permitAll()
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/books").permitAll()
-                        .requestMatchers("/books/").permitAll()
-                        .requestMatchers("/books/genre/**").permitAll()
-                        .requestMatchers("/books/all").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/books/genre/all/**").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/books/newAddPage").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/books/update").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/books/save").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/books/inventory-update").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/requests/new").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
-                        .requestMatchers("/requests/cancel").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
-                        .requestMatchers("/requests/all").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/requests/approve").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/requests/status/**").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/requests/**").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/**").permitAll()
+//                        .requestMatchers("", "/", "/index.html?continue").permitAll()
+//                        .requestMatchers("/books", "/books/", "/books/genre/**").permitAll()
+//                        .requestMatchers("/books/all", "/books/genre/all/**", "/books/newAddPage",
+//                                "/books/update", "/books/save", "/books/inventory-update").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/requests/new", "/requests/cancel", "/requests/all",
+//                                "/requests/approve", "/requests/status/**", "/requests/**").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
+//
+
+
+//                        .requestMatchers("").permitAll()
+//                        .requestMatchers("/").permitAll()
+//                        .requestMatchers("/books").permitAll()
+//                        .requestMatchers("/books/").permitAll()
+//                        .requestMatchers("/books/genre/**").permitAll()
+//                        .requestMatchers("/index.html?continue").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
+//
+//
+//
+//                        .requestMatchers("/books/all").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/books/genre/all/**").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/books/newAddPage").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/books/update").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/books/save").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/books/inventory-update").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/requests/new").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
+//                        .requestMatchers("/requests/cancel").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
+//                        .requestMatchers("/requests/all").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/requests/approve").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/requests/status/**").hasAnyRole("EMPLOYEE", "ADMIN")
+//                        .requestMatchers("/requests/**").hasAnyRole("EMPLOYEE", "ADMIN")
 
 
 
@@ -52,7 +66,7 @@ public class SecurityConfiguration {
 
 
 
-        ).formLogin(form ->
+                ).formLogin(form ->
                         form
                                 .loginPage("/showMyLoginPage")
                                 .loginProcessingUrl("/authenticateTheUser")

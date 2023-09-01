@@ -29,6 +29,11 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/access-denied")
+    public String showAccessDenied() {
+        return "access-denied";
+    }
+
     @GetMapping("/showRegistration")
     public String showRegistration() {
         return "registration";
