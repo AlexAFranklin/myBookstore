@@ -31,10 +31,15 @@ public class RequestController {
 
 
 
-//    @PostMapping("new")
-//    public void addRequest(@RequestBody Requests newRequest){
-//        iRequestService.save(newRequest);
-//    }
+    @PostMapping("/new")
+    public String addRequest(@ModelAttribute("theRequest") Requests newRequest){
+        newRequest.setStatus("REQUEST");
+        System.out.println(newRequest.getBookId());
+        iRequestService.save(newRequest);
+        return "books";
+    }
+
+
 //
 //    @PostMapping("/process/{id}")
 //    public void processRequest(@PathVariable int id, @RequestBody Map<String, String> requestBody){

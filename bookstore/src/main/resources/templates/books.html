@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
 
-
+<!--EHSAN-->
             <li class="nav-item active">
                 <a class="nav-link" sec:authorize="not hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:href="@{/books}">All Books <span class="sr-only"></span></a>
             </li>
@@ -191,7 +191,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" sec:authorize="hasRole('ROLE_CUSTOMER')">Purchase</button>
+
+
+                        <form th:action="@{/requests/new}" th:object="${theRequest}" method="POST">
+                            <input type="number" class="form-control" name="bookId" th:value="${theBook.id}" hidden="hidden">
+                            <input type="text" class="form-control" name="customerId" th:value="${#authentication.principal.username}" hidden="hidden">
+                            <button type="submit" class="btn btn-primary" sec:authorize="hasRole('ROLE_CUSTOMER')">Purchase</button>
+                        </form>
+
                         <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
                             <a class="btn btn-info mx-1" th:href="@{/showMyLoginPage}">Log In to Purchase</a>
                         </li>
