@@ -101,8 +101,6 @@ public class BookController {
 
     @PostMapping("/save")
     public String saveBook(@ModelAttribute("book") Book newBook) {
-        System.out.println(newBook.getGenre());
-        System.out.println(newBook.getIsbn());
         iBookService.save(newBook);
         return "redirect:/books/all";
     }
