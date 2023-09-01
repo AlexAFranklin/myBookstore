@@ -86,8 +86,17 @@
         <td th:text="${theRequest.bookPrice}" />
         <td th:text="${theRequest.bookInventory}" />
         <td>
-            <a href="#" class="btn btn-danger p-1">Cancel</a>
-            <a href="#" class="btn btn-success p-1">Approve</a>
+
+            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_CUSTOMER')"  th:action="@{/requests/cancel}" th:object="${theRequest}" method="post">
+                <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
+                <input type="text" class="form-control" name="employeeId" th:value="${#authentication.principal.username}" hidden="hidden">
+                <button type="submit" class="btn btn-success p-1">Cancel</button>
+            </form>
+            <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')"  th:action="@{/requests/approve}" th:object="${theRequest}" method="post">
+                    <input type="number" class="form-control" name="id" th:value="${theRequest.id}" hidden="hidden">
+                    <input type="text" class="form-control" name="employeeId" th:value="${#authentication.principal.username}" hidden="hidden">
+                    <button type="submit" class="btn btn-success p-1" >Approve</button>
+            </form>
         </td>
     </tr>
 
