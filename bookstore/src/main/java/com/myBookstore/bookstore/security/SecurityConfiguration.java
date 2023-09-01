@@ -18,6 +18,26 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfiguration {
+
+    private static final String[] AUTH_ANYONE = {
+            "/",
+            "/books",
+            "/genres/**"
+    };
+
+
+
+    private static final String[] AUTH_CUSTOMER = {
+            "/requests/new", "/requests/cancel"
+    };
+
+    private static final String[] AUTH_ADMIN = {
+            "/requests/**", "books/**"
+    };
+
+
+
+
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
@@ -27,7 +47,14 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                                 configurer
-                                        .requestMatchers("/**").permitAll()
+                                        .requestMatchers(AUTH_ANYONE).permitAll()
+                                        .requestMatchers(AUTH_CUSTOMER).hasAnyRole("ADMIN", "EMPLOYEE", "CUSTOMER")
+                                        .requestMatchers(AUTH_ADMIN).hasAnyRole("ADMIN", "EMPLOYEE")
+                                        .anyRequest().authenticated()
+
+
+
+                                       // .requestMatchers("/**").permitAll()
 //                        .requestMatchers("", "/", "/index.html?continue").permitAll()
 //                        .requestMatchers("/books", "/books/", "/books/genre/**").permitAll()
 //                        .requestMatchers("/books/all", "/books/genre/all/**", "/books/newAddPage",
@@ -42,6 +69,7 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/books").permitAll()
 //                        .requestMatchers("/books/").permitAll()
 //                        .requestMatchers("/books/genre/**").permitAll()
+
 //                        .requestMatchers("/index.html?continue").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
 //
 //
