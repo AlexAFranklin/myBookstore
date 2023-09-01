@@ -23,7 +23,8 @@ public class SecurityConfiguration {
             "/",
             "/books",
             "/books/genre/*",
-            "/showRegistration"
+            "/showRegistration",
+            "/new/customer"
     };
 
 
