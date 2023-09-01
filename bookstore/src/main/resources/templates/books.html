@@ -59,7 +59,7 @@
             </p>
             <p sec:authorize="hasRole('ROLE_EMPLOYEE')">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/requests/all}">Purchase Requests</a>
+                    <a class="nav-link" th:href="@{/requests}">Purchase Requests</a>
                 </li>
 
                 <li class="nav-item" sec:authorize="hasRole('ROLE_EMPLOYEE')">
