@@ -88,7 +88,7 @@
     <table class="table table-sm table-hover mt-5 table-striped table-info">
         <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">ID</th>
             <th sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" scope="col">ISBN</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
@@ -101,7 +101,7 @@
         </thead>
         <tbody>
         <tr th:each="theBook, rowStatus : ${books}">
-            <td th:text="${theBook.id}"/>
+            <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${theBook.id}"/>
             <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.isbn}"/>
             <td th:text="${theBook.title}"/>
             <td th:text="${theBook.author}"/>
