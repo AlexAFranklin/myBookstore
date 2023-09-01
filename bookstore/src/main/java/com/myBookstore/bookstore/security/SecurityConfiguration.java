@@ -28,6 +28,11 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/**").permitAll() // Allow access to all endpoints without authentication
+                        .requestMatchers("/books/all").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/genre/all").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/requests/all").hasAnyRole("EMPLOYEE", "ADMIN")
+
+
         ).formLogin(form ->
                         form
                                 .loginPage("/showMyLoginPage")
