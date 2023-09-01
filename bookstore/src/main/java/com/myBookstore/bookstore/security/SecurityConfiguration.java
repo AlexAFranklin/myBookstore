@@ -27,10 +27,29 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                 configurer
-                        .requestMatchers("/**").permitAll() // Allow access to all endpoints without authentication
+                        .requestMatchers("").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/books").permitAll()
+                        .requestMatchers("/books/").permitAll()
+                        .requestMatchers("/books/genre/**").permitAll()
                         .requestMatchers("/books/all").hasAnyRole("EMPLOYEE", "ADMIN")
-                        .requestMatchers("/genre/all").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/books/genre/all/**").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/books/newAddPage").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/books/update").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/books/save").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/books/inventory-update").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/requests/new").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
+                        .requestMatchers("/requests/cancel").hasAnyRole("EMPLOYEE", "ADMIN", "CUSTOMER")
                         .requestMatchers("/requests/all").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/requests/approve").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/requests/status/**").hasAnyRole("EMPLOYEE", "ADMIN")
+                        .requestMatchers("/requests/**").hasAnyRole("EMPLOYEE", "ADMIN")
+
+
+
+
+
+
 
 
         ).formLogin(form ->
@@ -38,7 +57,9 @@ public class SecurityConfiguration {
                                 .loginPage("/showMyLoginPage")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .permitAll()
-                )
+                ).logout(logout -> logout.permitAll())
+                .exceptionHandling(configurer ->
+                        configurer.accessDeniedPage("/access-denied"));
         ;
 
 //        http.csrf().disable(); // Disable CSRF protection for simplicity
