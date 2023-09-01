@@ -34,7 +34,7 @@ public class RequestController {
     @PostMapping("/new")
     public String addRequest(@ModelAttribute("theRequest") Requests newRequest){
         newRequest.setStatus("REQUEST");
-        System.out.println(newRequest.getBookId());
+        newRequest.setRequestDate(new Date());
         iRequestService.save(newRequest);
         return "redirect:/books";
     }
