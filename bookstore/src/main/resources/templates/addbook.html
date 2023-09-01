@@ -11,7 +11,7 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-secondary">
 <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
     <a class="navbar-brand mx-4  text-white" th:href="@{/books}">myBookstore</a>
@@ -82,47 +82,54 @@
 </nav>
 
 <!-- container -->
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-md-6">
-            <form action="#" th:action="@{/books/save}" method="POST" th:object="${theBook}" class="form-horizontal">
+<div class="container mt-5">
+    <form action="#" th:action="@{/books/save}" method="POST" th:object="${theBook}" class="form-horizontal bg-light pt-5 px-5 shadow-lg">
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-6">
+
                 <div class="row mb-2">
-                    <div class="col-md-1"><label for="title">ISBN</label></div>
-                    <div class="col-md-6"><input type="text" th:field="*{isbn}" class="form-control" id="isbn"
+                    <div class="col-md-2"><label class="text-dark" for="title">ISBN</label></div>
+                    <div class="col-md-6"><input type="text" th:field="*{isbn}" class="form-control " id="isbn"
                                                  name="title" placeholder="ISBN"></div>
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col-md-1 "><label for="title">Title</label></div>
+                    <div class="col-md-2 "><label class="text-dark" for="title">Title</label></div>
                     <div class="col-md-6"><input type="text" th:field="*{title}" class="form-control" id="title"
                                                  name="title"
                                                  placeholder="Title"></div>
                 </div>
-                <div class="row mb-2">
-                    <div class="col-md-1 "><label for="author">Author</label></div>
-                    <div class="col-md-6"><input type="text" th:field="*{author}" class="form-control" id="author"
-                                                 name="author"
-                                                 placeholder="Author"></div>
-                </div>
 
 
-                <div class="row mb-2">
-                    <div class="col-md-1 "><label for="publisher">Publisher</label></div>
-                    <div class="col-md-6"><input type="text" th:field="*{publisher}" class="form-control" id="publisher"
-                                                 name="publisher"
-                                                 placeholder="Publisher"></div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-1 "><label for="description">Description</label></div>
+                <div class="row mb-2 text-align-center">
+                    <div class="col-md-2"><label class="text-dark" for="description">Description</label></div>
                     <div class="col-md-6"><textarea class="form-control" th:field="*{description}" id="description"
                                                     rows="6"
                                                     name="description"
                                                     placeholder="Description"></textarea></div>
                 </div>
 
+            </div>
+            <!-- RIGHT -->
+            <div class="col-md-6">
                 <div class="row mb-2">
-                    <div class="col-md-1"><label for="description">Genre</label></div>
+                    <div class="col-md-2 "><label class="text-dark" for="author">Author</label></div>
+                    <div class="col-md-6"><input type="text" th:field="*{author}" class="form-control" id="author"
+                                                 name="author"
+                                                 placeholder="Author"></div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2 "><label class="text-dark" for="publisher">Publisher</label></div>
+                    <div class="col-md-6"><input type="text" th:field="*{publisher}" class="form-control" id="publisher"
+                                                 name="publisher"
+                                                 placeholder="Publisher"></div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2"><label class="text-dark" for="description">Genre</label></div>
                     <div class="col-md-6">
                         <select class="form-select" aria-label="Genre Options" th:field="*{genre}">
                             <option class="dropdown-item"
@@ -133,39 +140,53 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col-md-1 "><label for="price">Price:</label></div>
-                    <div class="col-md-6"><input type="number" th:field="*{price}" class="form-control" id="price" name="price"
+                    <div class="col-md-2 "><label class="text-dark" for="price">Price:</label></div>
+                    <div class="col-md-6"><input type="number" th:field="*{price}" class="form-control" id="price"
+                                                 name="price"
                                                  placeholder="Price" step="0.01"></div>
                 </div>
 
+                <div class="row mb-2">
+                    <div class="col-md-2 "><label class="text-dark" for="inventory">Inventory:</label></div>
+                    <div class="col-md-6"><input type="number" th:field="*{inventory}" class="form-control"
+                                                 id="inventory" name="inventory"
+                                                 placeholder="inventory"></div>
+                </div>
 
 
-                <div class="form-group pb-3">
-                    <label for="inventory">Inventory:</label>
-                    <input type="number" th:field="*{inventory}" class="form-control" id="inventory" name="inventory"
-                           placeholder="inventory">
-                </div>
-                <div class="form-group">
-                    <label>Available</label>
-                    <div class="form-check">
-                        <input class="form-check-input" th:field="*{available}" type="radio" name="available" id="yes"
-                               value="yes"
-                               checked>
-                        <label class="form-check-label" for="yes">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check pb-3">
-                        <input class="form-check-input" type="radio" name="available" id="no" value="no">
-                        <label class="form-check-label" for="no">
-                            No
-                        </label>
+                <div class="row mb-2">
+                    <div class="col-md-2"><label class="text-dark">Available</label></div>
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" th:field="*{available}" type="radio" name="available"
+                                   id="yes"
+                                   value="yes"
+                                   checked>
+                            <label class="form-check-label text-dark" for="yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check pb-3">
+                            <input class="form-check-input" type="radio" name="available" id="no" value="no">
+                            <label class="form-check-label text-dark" for="no">
+                                No
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success mt-2 mb-5">Submit</button>
-            </form>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success mt-2 mb-5 btn-lg shadow-lg">Add New Book</button>
+                </div>
+            </div>
+
+
         </div>
-    </div>
+    </form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
