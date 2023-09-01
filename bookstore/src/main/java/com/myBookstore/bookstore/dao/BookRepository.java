@@ -18,7 +18,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findByPrice(double price);
 
-    //void updateInventory(int theId, int newBooksAmount);
 }
 
 

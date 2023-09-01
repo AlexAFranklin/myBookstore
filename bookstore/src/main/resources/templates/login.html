@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+          rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous">
 
     <title>Spring Boot App - Security Practice</title>
     <style>
@@ -16,9 +17,11 @@
             height: 1px;
             background: #eee;
         }
+
         .h-custom {
             height: calc(100% - 73px);
         }
+
         @media (max-width: 450px) {
             .h-custom {
                 height: 100%;
@@ -50,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="text-danger" th:if="${param.logout}" >
+                        <div class="text-danger" th:if="${param.logout}">
                             You have been logged out.
                         </div>
                     </div>
@@ -62,22 +65,24 @@
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <input type="text" id="username" name="username" required class="form-control form-control-lg"
-                               placeholder="Enter your username" />
+                               placeholder="Enter your username"/>
                         <label class="form-label" for="username"></label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
-                        <input type="password" id="password" name="password" required class="form-control form-control-lg"
-                               placeholder="Enter password" />
+                        <input type="password" id="password" name="password" required
+                               class="form-control form-control-lg"
+                               placeholder="Enter password"/>
                         <label class="form-label" for="password"></label>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="submit" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+                        </button>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
-<!--                            <a href="#!" class="link-danger">Register</a>-->
+                            <!--                            <a href="#!" class="link-danger">Register</a>-->
                             <a class="link-danger" th:unless="${#authorization.expression('isAuthenticated()')}">
                                 <a class="link-danger" th:href="@{/showRegistration}">Register</a>
                             </a>
@@ -95,10 +100,6 @@
             Copyright © 2023. All rights reserved.
         </div>
         <!-- Copyright -->
-
-        <!-- Right -->
-
-        <!-- Right -->
     </div>
 </section>
 </body>

@@ -91,8 +91,8 @@
             <td th:text="${theRequest.bookId}"/>
             <td th:text="${theRequest.customerId}"/>
             <td th:text="${theRequest.employeeId}"/>
-            <td th:text="${theRequest.requestDate}"/>
-            <td th:text="${theRequest.updateDate}"/>
+            <td th:text="${#dates.format(theRequest.requestDate,'yyyy-MM-dd')}"/>
+            <td th:text="${#dates.format(theRequest.updateDate,'yyyy-MM-dd')}"/>
             <td th:text="${theRequest.status}"/>
             <td th:text="${theRequest.bookTitle}"/>
             <td th:text="${theRequest.bookAuthor}"/>

@@ -23,7 +23,6 @@ public class Authority {
     }
 
 
-
     public String getUsername() {
         return username;
     }

@@ -19,15 +19,15 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfiguration {
     @Bean
-    public UserDetailsManager userDetailsManager(DataSource dataSource){
+    public UserDetailsManager userDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
-                configurer
-                        .requestMatchers("/**").permitAll()
+                                configurer
+                                        .requestMatchers("/**").permitAll()
 //                        .requestMatchers("", "/", "/index.html?continue").permitAll()
 //                        .requestMatchers("/books", "/books/", "/books/genre/**").permitAll()
 //                        .requestMatchers("/books/all", "/books/genre/all/**", "/books/newAddPage",
@@ -58,12 +58,6 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/requests/approve").hasAnyRole("EMPLOYEE", "ADMIN")
 //                        .requestMatchers("/requests/status/**").hasAnyRole("EMPLOYEE", "ADMIN")
 //                        .requestMatchers("/requests/**").hasAnyRole("EMPLOYEE", "ADMIN")
-
-
-
-
-
-
 
 
                 ).formLogin(form ->

@@ -12,14 +12,8 @@ import java.util.Optional;
 
 public interface RequestRepository extends JpaRepository<Requests, Integer> {
 
-List<Requests> findByStatus(String status);
+    List<Requests> findByStatus(String status);
 
-
-List<Requests> findByCustomerId(String customerId);
-
-
-
-
-
+    List<Requests> findByCustomerId(String customerId);
 
 }

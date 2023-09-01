@@ -1,4 +1,5 @@
 package com.myBookstore.bookstore.entity;
+
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -12,22 +13,22 @@ public class Requests {
     @Column(name = "id")
     private int id;
 
-    @Column(name="book_id")
+    @Column(name = "book_id")
     private int bookId;
 
-    @Column(name="customer_id")
+    @Column(name = "customer_id")
     private String customerId;
 
-    @Column(name="employee_id")
+    @Column(name = "employee_id")
     private String employeeId;
 
-    @Column(name="request_date")
+    @Column(name = "request_date")
     private Date requestDate;
 
-    @Column(name="status_update_date")
+    @Column(name = "status_update_date")
     private Date updateDate;
 
-    @Column(name="status")
+    @Column(name = "status")
     private String status;
 
     public Requests() {
