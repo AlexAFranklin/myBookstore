@@ -85,7 +85,7 @@
 
 
 <div class="container-fluid">
-    <table class="table table-sm table-hover mt-5 table-striped table-success">
+    <table class="table table-sm table-hover mt-5 table-striped table-info">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -108,7 +108,7 @@
             <td th:text="${theBook.genre.displayValue}"/>
             <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')" th:text="${theBook.inventory}"/>
             <td sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')">
-                <button type="button" class="btn btn-success shadow-lg"
+                <button type="button" class="btn btn-outline-danger shadow-lg"
                         data-toggle="modal" th:attr="data-target='#addInventory' + ${rowStatus.index}">
                     Add inventory
                 </button>
