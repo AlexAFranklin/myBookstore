@@ -54,7 +54,7 @@ public class RequestController {
         return "redirect:/requests";
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public String listAllRequests (Model theModel) {
         List <RequestViewDto> requestList = iRequestService.getAllRequestsWithBookDetails();
         theModel.addAttribute("requests", requestList);
