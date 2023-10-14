@@ -37,7 +37,7 @@ public class RequestController {
     @PostMapping("/cancel")
     public String cancelRequest(@ModelAttribute("theRequest") Requests theRequest) {
         iRequestService.cancelRequest(theRequest.getId());
-        return "redirect:/requests";
+        return "redirect:/requests/status/CANCELLED";
     }
 
     @PostMapping("/approve")
@@ -45,7 +45,7 @@ public class RequestController {
         String employeeId = theRequest.getEmployeeId();
         int requestId = theRequest.getId();
         iRequestService.processRequest(requestId, employeeId, "FULFILLED");
-        return "redirect:/requests";
+        return "redirect:/requests/status/FULFILLED";
     }
 
     @GetMapping("")

@@ -1,16 +1,21 @@
 package com.myBookstore.bookstore.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
 @Table(name = "authorities")
 public class Authority {
     @Id
+    @NotEmpty(message = "Username cannot be empty")
+    @Size(max = 255, min = 5, message = "Username cannot exceed 255 characters and must be over 5")
     @Column(name = "username")
     private String username;
 
 
+    @NotEmpty(message = "Authority cannot be empty")
     @Column(name = "authority")
     private String authority;
 

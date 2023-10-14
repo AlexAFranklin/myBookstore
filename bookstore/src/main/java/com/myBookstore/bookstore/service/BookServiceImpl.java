@@ -4,6 +4,8 @@ import com.myBookstore.bookstore.dao.BookRepository;
 import com.myBookstore.bookstore.entity.Book;
 import com.myBookstore.bookstore.entity.Genre;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
+import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +57,8 @@ public class BookServiceImpl implements IBookService{
     }
     @Override
     public void save(Book theBook) {
-    bookRepository.save(theBook);
+        bookRepository.save(theBook);
+
     }
 
 

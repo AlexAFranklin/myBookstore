@@ -5,24 +5,38 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
+
+
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
+    @NotEmpty(message = "Username is a required field.")
+    @Size(min = 4, max = 50, message = "Username must be between 4 and 30 characters")
     @Column(name = "username")
     private String username;
 
+    @NotEmpty(message = "Password is a required field.")
+    @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
     @Column(name = "password")
     private String password;
 
+    @NotEmpty(message = "Name is a required field.")
+    @Size(min = 4, max = 50, message = "Name must be between 4 and 50 characters")
     @Column(name = "full_name")
     private String fullName;
 
+    @NotEmpty(message = "Email is a required field.")
+    @Email(message = "Invalid email address.")
+    @Size(max = 100, message = "Email must be less than 100 characters")
     @Column(name = "email")
     private String email;
 
+    @NotNull(message = "Enabled status is a required field")
+    @Pattern(regexp = "^(0|1)$", message = "Enabled status should be 0 or 1.")
     @Column(name = "enabled")
     private int enabled;
 

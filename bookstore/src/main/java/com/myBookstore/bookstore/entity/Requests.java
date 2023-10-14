@@ -1,6 +1,12 @@
 package com.myBookstore.bookstore.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.util.Date;
 
@@ -13,21 +19,31 @@ public class Requests {
     @Column(name = "id")
     private int id;
 
+    @NotNull(message = "Book ID cannot be empty")
     @Column(name = "book_id")
     private int bookId;
 
+    @NotNull(message = "Customer ID cannot be empty")
+    @Size(max = 50, message = "Customer ID must not exceed 50 character")
     @Column(name = "customer_id")
     private String customerId;
 
+
+    @Size(max = 50, message = "Employee ID must not exceed 50 character")
     @Column(name = "employee_id")
     private String employeeId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Request date cannot be empty")
     @Column(name = "request_date")
     private Date requestDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "status_update_date")
     private Date updateDate;
 
+    @Pattern(regexp = "^(REQUEST|CANCELLED|FULFILLED)$", message = "Status should be REQUEST, CANCELLED, or FULFILLED")
+    @NotEmpty(message = "Status must be either request, cancel, or fulfill")
     @Column(name = "status")
     private String status;
 

@@ -4,9 +4,14 @@ package com.myBookstore.bookstore.controller;
 import com.myBookstore.bookstore.entity.Book;
 import com.myBookstore.bookstore.entity.Genre;
 import com.myBookstore.bookstore.service.IBookService;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,60 +70,41 @@ public class BookController {
     }
 
 
-    //    @GetMapping("/all/{id}")
-//    public ResponseEntity<Book> findByIdAdmin(@PathVariable int id) {
-//        return iBookService.findById(id)
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.noContent().build());
-//
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Book> findById(@PathVariable int id) {
-//        return iBookService.findByIdAndAvailable(id, true)
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.noContent().build());
-//
-//    }
-//
-//    @PostMapping("")
-//    public void addBook(@RequestBody Book newBook) {
-//
-//        iBookService.save(newBook);
-//    }
-//
     @PostMapping("/update")
-    public String updateBook(@ModelAttribute("theBook") Book newBook) {
+    public String updateBook(@Validated @ModelAttribute("theBook") Book newBook, BindingResult bindingResult) {
         System.out.println(newBook.getAuthor() + "AUTHOR");
         System.out.println(newBook.getGenre() + "GENRE");
+        if (bindingResult.hasErrors()) {
+           return "redirect:/books/all";
+
+        }
         iBookService.save(newBook);
         return "redirect:/books/all";
     }
 
     @PostMapping("/save")
-    public String saveBook(@ModelAttribute("book") Book newBook) {
+    public String saveBook(@Validated @ModelAttribute("theBook") Book newBook, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "addbook";
+        }
         iBookService.save(newBook);
+
         return "redirect:/books/all";
+
     }
 
-    //
-//    @GetMapping("/price/{price}")
-//    public List<Book> findByPrice(@PathVariable double price) {
-//        return iBookService.findByPrice(price);
-//    }
-//
     @PostMapping("/inventory-update")
-    public String updateInventory(@ModelAttribute("theBook") Book theBook) {
+    public String updateInventory(@Valid @ModelAttribute("theBook") Book theBook, BindingResult bindingResult) {
         int inventory = theBook.getInventory();
         int id = theBook.getId();
         System.out.println(id);
+        if (bindingResult.hasErrors()) {
+            return "redirect:/books/all";
+        }
         iBookService.updateInventory(id, inventory);
         return "redirect:/books/all";
+
     }
-//
-//    @PostMapping("/available-update/{id}")
-//    public void updateAvailability(@PathVariable int id, @RequestBody Map<String, Boolean> requestBody){
-//        boolean available = requestBody.get("available");
-//        iBookService.updateAvailability(id, available);
-//    }
+
 }
