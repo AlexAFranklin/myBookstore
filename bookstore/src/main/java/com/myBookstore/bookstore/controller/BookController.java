@@ -72,9 +72,8 @@ public class BookController {
 
     @PostMapping("/update")
     public String updateBook(@Validated @ModelAttribute("theBook") Book newBook, BindingResult bindingResult) {
-        System.out.println(newBook.getAuthor() + "AUTHOR");
-        System.out.println(newBook.getGenre() + "GENRE");
         if (bindingResult.hasErrors()) {
+            System.out.println("error");
            return "redirect:/books/all";
 
         }
